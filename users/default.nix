@@ -15,5 +15,7 @@
       ];
       shell = pkgs.zsh;
     };
+
+    extraGroups.vboxusers.members = ["jon"];
   };
 }

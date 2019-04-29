@@ -4,15 +4,14 @@
 
 { config, pkgs, ... }:
 
-let
-  unstable = import <nixos-unstable> { config = { allowUnfree = true; }; };
+{
+  # make a copy of this configuration, just in case
+  environment.etc.current-nixos-config.source = ./.;
 
-in {
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
 
-      ./environment
       ./security
       ./services
       ./users
@@ -44,12 +43,17 @@ in {
     '';
   };
   
-  networking.hostName = "nixos"; # Define your hostname.
-  networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+  networking = {
+    hostName = "nixos"; # Define your hostname.
+    wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
+    firewall = {
+      enable = false;
+      allowedTCPPorts = [ ];
+      allowedUDPPorts = [ ];
+      allowPing = true;
+    };
+  };
 
   # Select internationalisation properties.
   i18n = {
@@ -61,16 +65,70 @@ in {
   # Set your time zone.
   time.timeZone = "America/Chicago";
 
+  environment.systemPackages = with pkgs;
+  let
+      # Packages to always install.
+      common = [
+        ag
+        binutils
+        file
+        fzf
+        git
+        gnupg
+        htop
+        jq
+        lsof
+        neovim
+        nmap
+        mkpasswd
+        p7zip
+        pciutils
+        ripgrep
+        tmux
+        tree
+        universal-ctags
+        unrar
+        unzip
+        w3m
+        wget
+        zip
+      ];
+
+      nox = [ vim ];
+
+      x = [
+        feh
+        firefox
+        google-chrome
+        rxvt_unicode_with-plugins
+        xclip
+        xorg.xmessage
+        xsel
+        vimHugeX
+      ];
+
+  in common ++ (if config.services.xserver.enable then x else nox);
+
   fonts.fonts = with pkgs; [
+    corefonts
+    dejavu_fonts
+    dina-font
+    fira
+    fira-code
+    fira-code-symbols
+    fira-mono
+    font-awesome-ttf
+    ibm-plex
+    inconsolata
+    liberation_ttf
+    mplus-outline-fonts
     noto-fonts
     noto-fonts-cjk
     noto-fonts-emoji
-    liberation_ttf
-    fira-code
-    fira-code-symbols
-    mplus-outline-fonts
-    dina-font
     proggyfonts
+    siji
+    ubuntu_font_family
+    vistafonts
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -78,25 +136,20 @@ in {
   # programs.mtr.enable = true;
   programs.gnupg.agent = { enable = true; enableSSHSupport = true; };
 
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
-
   # Enable sound.
   sound.enable = true;
   hardware.pulseaudio.enable = true;
   hardware.pulseaudio.support32Bit = true;
 
-
   hardware.opengl.driSupport32Bit = true;
 
+  virtualisation.virtualbox = {
+    host.enable = true;
+  };
 
   # This value determines the NixOS release with which your system is to be
   # compatible, in order to avoid breaking some software such as database
   # servers. You should change this only after NixOS release notes say you
   # should.
   system.stateVersion = "18.09"; # Did you read the comment?
-
 }
