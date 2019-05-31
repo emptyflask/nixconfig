@@ -11,6 +11,7 @@
       extraGroups = [
         "audio"
         "networkmanager"
+        "sabnzbd"
         "wheel"
       ];
       shell = pkgs.zsh;

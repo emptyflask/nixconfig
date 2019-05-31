@@ -28,4 +28,11 @@ in
       ]) vpns;
     }
   ];
+
+  security.pki.certificateFiles = [
+    "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt"
+    /root/ssl/certs/sxsw.localhost.crt
+  ];
+
+  # security.dhparams.enable = true;
 }

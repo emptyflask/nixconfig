@@ -7,6 +7,11 @@
     acpid.enable = true;
     apcupsd.enable = true;
     clipmenu.enable = true;
+    elasticsearch = {
+      enable = true;
+      plugins = [
+      ];
+    };
     locate.enable = true;
 
     mpd = {
@@ -20,17 +25,15 @@
       permitRootLogin = "no";
     };
 
-    printing = {
-      enable = true;
-      # drivers = [];
-    };
-
-    samba.enable = true;
     pcscd.enable = true;
+    printing.enable = true;
     redis.enable = true;
+    sabnzbd.enable = true;
+    samba.enable = true;
 
     udev.packages = [ pkgs.yubikey-personalization ];
 
+    nginx      = import ./nginx;
     openvpn    = import ./openvpn;
     postgresql = import ./postgresql pkgs;
     xserver    = import ./xserver.nix;

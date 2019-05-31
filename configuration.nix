@@ -102,6 +102,7 @@
         google-chrome
         rxvt_unicode_with-plugins
         xclip
+        xidlehook
         xorg.xmessage
         xsel
         vimHugeX
