@@ -7,17 +7,20 @@
     acpid.enable = true;
     apcupsd.enable = true;
     clipmenu.enable = true;
+
     elasticsearch = {
       enable = true;
-      plugins = [
-      ];
+      plugins = [ ];
     };
+
     locate.enable = true;
 
     mpd = {
       enable = true;
       musicDirectory = "/media/repository/music";
     };
+
+    ntp.enable = true;
 
     openssh = {
       enable = true;
