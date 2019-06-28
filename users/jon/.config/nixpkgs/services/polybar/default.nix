@@ -68,14 +68,14 @@ with pkgs;
         "inherit"      = "commonbar";
         modules-left   = "xmonad-workspaces";
         modules-center = "cpu temperature memory swap";
-        modules-right  = "battery backlight volume date";
+        modules-right  = "battery backlight volume date openvpn-status";
       };
 
       "bar/desktop" = {
         "inherit"      = "commonbar";
         modules-left   = "xmonad-workspaces xmonad-title";
         modules-center = "cpu memory swap";
-        modules-right  = "volume date";
+        modules-right  = "volume date openvpn-status";
       };
 
       "module/xmonad" = {
@@ -156,6 +156,12 @@ with pkgs;
 
         format-padding = 2;
         format-underline = "\${colors.blue}";
+      };
+
+      "module/openvpn-status" = {
+        type = "custom/script";
+        exec = "printf 'VPN: ' && (pgrep -a openvpn$ | ${pkgs.coreutils}/bin/head -n 1 | awk '{path=$NF;n=split(path,A,\"-\");print A[n]}' | ${pkgs.coreutils}/bin/cut -f 1 && echo down) | ${pkgs.coreutils}/bin/head -n 1";
+        interval = 5;
       };
 
       "module/backlight" = {
