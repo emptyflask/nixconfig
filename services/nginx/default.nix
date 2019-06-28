@@ -35,5 +35,6 @@
       "distro.sxsw.localhost"   = proxy 5004 // {  };
       "chronos.sxsw.localhost"  = proxy 5005 // {  };
       "abraxas.sxsw.localhost"  = proxy 5006 // {  };
+      "me-cart.sxsw.localhost"  = proxy 5007 // {  };
     };
   }
