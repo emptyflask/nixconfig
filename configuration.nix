@@ -48,8 +48,8 @@
     wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
     firewall = {
-      enable = false;
-      allowedTCPPorts = [ ];
+      enable = true;
+      allowedTCPPorts = [ 22 ];
       allowedUDPPorts = [ ];
       allowPing = true;
     };
