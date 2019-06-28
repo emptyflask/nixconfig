@@ -45,8 +45,13 @@ in {
     exercism
     fasd
     fd
+    flameshot
     fortune
     gimp
+    haskellPackages.ghcid
+    haskellPackages.hindent
+    haskellPackages.hlint
+    # haskellPackages.intero
     htop
     i3lock-fancy
     irssi

@@ -32,6 +32,7 @@ with pkgs;
           gruvbox
           haskell-vim
           hlint-refactor
+          intero-neovim
           lightline-vim
           neco-ghc
           neosnippet
@@ -47,6 +48,7 @@ with pkgs;
           vim-go
           vim-grepper
           vim-gutentags
+          vim-hindent
           vim-nix
           vim-snippets
           vim-speeddating

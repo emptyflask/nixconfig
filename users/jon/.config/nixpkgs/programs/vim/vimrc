@@ -155,6 +155,10 @@ if !exists('vimpager')
   nnoremap k gk
 endif
 
+set cursorline
+map <leader>c :set cursorline!<cr>
+map <leader>C :set cursorcolumn!<cr>
+
 " Use E to jump back to the previous end of a word
 map E ge
 
