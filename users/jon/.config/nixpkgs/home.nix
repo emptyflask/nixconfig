@@ -83,18 +83,18 @@ in {
 
     direnv.enable = true;
 
-    emacs = {
-      enable = true;
-      extraPackages = epkgs: with epkgs; [
-        evil
-        evil-cleverparens
-        evil-indent-textobject
-        evil-surround
-        magit
-        nix-mode
-        undo-tree
-      ];
-    };
+#     emacs = {
+#       enable = true;
+#       extraPackages = epkgs: with epkgs; [
+#         evil
+#         evil-cleverparens
+#         evil-indent-textobject
+#         evil-surround
+#         magit
+#         nix-mode
+#         undo-tree
+#       ];
+#     };
 
     firefox = {
       enable = true;
