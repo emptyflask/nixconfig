@@ -1,6 +1,8 @@
 " -----------------------------------------------------------------------------
 " | VIM Settings |
 " -----------------------------------------------------------------------------
+set termguicolors
+set background=dark
 
 set nocompatible
 set shell=$SHELL
@@ -330,3 +332,5 @@ function! RenameFile()
 endfunction
 
 map <leader>n :call RenameFile()<cr>
+
+map <F10> :echo join(reverse(map(synstack(line('.'), col('.')), {i,v -> synIDattr(v, 'name')})))<cr>

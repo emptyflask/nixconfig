@@ -40,6 +40,7 @@
     # hide hdmi audio device
     extraModprobeConfig = ''
       options snd_hda_intel enable=1,0
+      options usbcore       autosuspend=-1
     '';
   };
   
@@ -75,6 +76,7 @@
         fzf
         git
         gnupg
+        gotop
         htop
         jq
         lsof

@@ -28,6 +28,7 @@ in {
   };
 
   home.packages = with pkgs; [
+    unstable.scribus
     unstable.signal-desktop
     unstable.slack
     small.steam
@@ -73,9 +74,26 @@ in {
     tig
     units
     vlc
+    weechat
     zathura # minimal PDF viewer
     zeal
   ];
+
+  gtk = {
+    enable = true;
+    iconTheme = {
+      package = pkgs.gnome3.gnome_themes_standard;
+      name = "Adwaita";
+    };
+    font = {
+      name = "Noto Sans 10";
+      package = pkgs.noto-fonts;
+    };
+    theme = {
+      name = "Adwaita-dark";
+      package = pkgs.gnome3.gnome-themes-standard;
+    };
+  };
 
   programs = {
     # Let Home Manager install and manage itself.
@@ -103,13 +121,9 @@ in {
 
     rofi = {
       enable = true;
-      theme = "sidebar";
+      theme = "gruvbox-dark";
     };
 
-    vim = {
-      plugins     = pkgs.appConfigs.vim.knownPlugins;
-      extraConfig = pkgs.appConfigs.vim.vimConfig;
-    };
   };
 
   services = {
@@ -139,17 +153,29 @@ in {
       enableSshSupport = true;
     };
 
+    mpd.enable = true;
+
     redshift = {
       enable    = true;
       latitude  = toString (latlong myLocation).lat;
       longitude = toString (latlong myLocation).long;
       tray      = true;
     };
+
+    xscreensaver = {
+      enable = true;
+      settings = {
+        lock = true;
+      };
+    };
+  };
+
+  qt = {
+    enable = true;
+    platformTheme = "gtk"; # gnome or gtk
   };
 
   xdg.enable = true;
-
-  # xscreensaver.enable = true;
 
   xsession = {
     enable = true;
@@ -166,6 +192,7 @@ in {
       --timer primary 600 '${pkgs.i3lock-fancy}/bin/i3lock-fancy' \
       --timer normal 3600 'systemctl suspend'
     '';
+
     windowManager.xmonad = rec {
       enable = true;
       enableContribAndExtras = true;
@@ -175,6 +202,12 @@ in {
         haskellPackages.xmonad-contrib
         haskellPackages.xmonad-extras
       ];
+    };
+    pointerCursor = {
+      package = pkgs.gnome3.gnome-themes-standard;
+      size = 16; # default = 32; example = 64;
+      defaultCursor = "left_ptr"; # example = "X_cursor";
+      name = "Adwaita";
     };
   };
 
@@ -194,8 +227,11 @@ in {
 #  };
 
   imports = [
+    ./services/dunst
     ./services/polybar
     ./programs/neovim
+    ./programs/vim
     ./programs/zsh
+    ./xresources
   ];
 }

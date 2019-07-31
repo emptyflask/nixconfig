@@ -1,22 +1,24 @@
 { pkgs, ... }:
 {
   services = {
-    # emacs.enable = true;
-    # gnome3.gpaste.enable = true;
-
-    acpid.enable = true;
-    apcupsd.enable = true;
+    acpid.enable    = true;
+    apcupsd.enable  = true;
     clipmenu.enable = true;
+
+    dbus.packages = with pkgs; [ gnome3.dconf ];
 
     elasticsearch = {
       enable = true;
       plugins = [ ];
     };
 
-    locate.enable = true;
+    emacs.enable                = false;
+    gnome3.gnome-keyring.enable = true;
+    gnome3.gpaste.enable        = false;
+    locate.enable               = true;
 
     mpd = {
-      enable = true;
+      enable = false;
       musicDirectory = "/media/repository/music";
     };
 
@@ -28,11 +30,11 @@
       permitRootLogin = "no";
     };
 
-    pcscd.enable = true;
+    pcscd.enable    = true;
     printing.enable = true;
-    redis.enable = true;
-    sabnzbd.enable = true;
-    samba.enable = true;
+    redis.enable    = true;
+    sabnzbd.enable  = true;
+    samba.enable    = true;
 
     udev.packages = [ pkgs.yubikey-personalization ];
 
