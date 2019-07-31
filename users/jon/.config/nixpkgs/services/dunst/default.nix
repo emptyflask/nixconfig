@@ -10,26 +10,26 @@ with pkgs;
     settings = {
 
       frame = {
-        width = "0";
-        color = "#212121";
+        width = "2";
+        color = "#1d2021";
       };
 
       urgency_low = {
-        background = "#000000";
-        foreground = "#ffffff";
-        timeout = "5";
+        background = "#282828";
+        foreground = "#ebdbb2";
+        timeout    = "5";
       };
 
       urgency_normal = {
-        background = "#212121";
+        background = "#3c3836";
         foreground = "#ffffff";
-        timeout = "10";
+        timeout    = "10";
       };
 
       urgency_critical = {
-        background = "#fbc02d";
+        background = "#fabd2f";
         foreground = "#000000";
-        timeout = "0";
+        timeout    = "0";
       };
 
       global = {
@@ -48,7 +48,7 @@ with pkgs;
         # If width is 0, window will fit to longest message
         # Positive x value is measured from the left of the screen, negative x is measured from the right
         # Positive y value is measured from the top of the screen
-        geometry            = "300x5-50+75";
+        geometry            = "300x5-30+55";
 
         font                = "Roboto 10";
         allow_markup        = "yes";
@@ -60,7 +60,7 @@ with pkgs;
         show_age_threshold  = "60";          # Show if message is older than x seconds (-1 to disable)
         word_wrap           = "yes";         # Split notifications into multiple lines if they don't fit into geometry
         ignore_newline      = "no";          # Ignore "\n"
-        transparency        = "40";          # The transparency of the window. 0 (opaque) to 100 (transparent) - requires compositing window manager (xcompmgr, compiz, compton, etc)
+        transparency        = "10";          # The transparency of the window. 0 (opaque) to 100 (transparent) - requires compositing window manager (xcompmgr, compiz, compton, etc)
         shrink              = "no";          # Shrink window if it's smaller than the width (ignored if width is 0)
         monitor             = "0";           # Display notifications on the monitor indicated (0 is default)
         follow              = "none";        # Follow mouse/keyboard/none
