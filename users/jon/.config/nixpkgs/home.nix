@@ -28,17 +28,16 @@ in {
   };
 
   home.packages = with pkgs; [
+    unstable.blender
+    unstable.postman
     unstable.scribus
     unstable.signal-desktop
     unstable.slack
     small.steam
     small.steam-run
 
-    haskellPackages.greenclip  # a different clipboard manager
-
     albert     # ctrl-space
     antibody
-    blender
     calibre    # e-book library
     dmenu
     dropbox
@@ -49,19 +48,23 @@ in {
     flameshot
     fortune
     gimp
+    ghc
     haskellPackages.ghcid
+    # haskellPackages.greenclip  # a different clipboard manager
     haskellPackages.hindent
     haskellPackages.hlint
     # haskellPackages.intero
     htop
     i3lock-fancy
     irssi
+    jq
     kitty    # terminal
     mplayer
     mpv
     ncmpcpp
     neomutt  # CLI mail
     nix-zsh-completions
+    nodejs
     pavucontrol
     pcmanfm  # GUI file manager
     ranger   # CLI file manager
@@ -72,9 +75,11 @@ in {
     stalonetray
     thunderbird
     tig
+    tmux
     units
     vlc
     weechat
+    yarn
     zathura # minimal PDF viewer
     zeal
   ];
@@ -123,27 +128,25 @@ in {
       enable = true;
       theme = "gruvbox-dark";
     };
-
   };
 
   services = {
     compton = {
-      enable    = true;
-      fade      = true;
-      fadeDelta = 5;
-      fadeSteps = ["0.04" "0.04"];
-      shadow    = true;
-      backend   = "glx";
-      vSync     = "opengl-swc";
+      enable       = true;
+      fade         = true;
+      fadeDelta    = 5;
+      fadeSteps    = ["0.04" "0.04"];
+      shadow       = true;
+      backend      = "xrender";
+      vSync        = "opengl";
       extraOptions = ''
-        clear-shadow = true;
-        glx-no-rebind-pixmap = true;
-        glx-no-stencil = true;
-        paint-on-overlay = true;
-        xrender-sync-fence = true;
-      # blur-background = true;
-      # blur-background-fixed = true;
-      # blur-kern = "9,9,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,";
+        clear-shadow          = true;
+        glx-no-rebind-pixmap  = true;
+        glx-no-stencil        = true;
+        # glx-copy-from-front   = false;
+        glx-swap-method       = "copy";
+        paint-on-overlay      = true;
+        xrender-sync-fence    = true;
       '';
     };
 
@@ -230,6 +233,7 @@ in {
     ./services/dunst
     ./services/polybar
     ./programs/neovim
+    ./programs/tmux
     ./programs/vim
     ./programs/zsh
     ./xresources

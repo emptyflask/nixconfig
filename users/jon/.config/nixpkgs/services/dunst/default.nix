@@ -48,7 +48,7 @@ with pkgs;
         # If width is 0, window will fit to longest message
         # Positive x value is measured from the left of the screen, negative x is measured from the right
         # Positive y value is measured from the top of the screen
-        geometry            = "300x5-30+55";
+        geometry            = "400x5-30+55";
 
         font                = "Roboto 10";
         allow_markup        = "yes";
@@ -72,13 +72,14 @@ with pkgs;
         horizontal_padding  = "8";           # Horizontal padding
         separator_color     = "frame";       # Color for separator: auto/foreground/frame/X color
         icon_position       = "left";        # Align icons left/right/off
+        max_icon_size       = "64";
 
         idle_threshold      = "120";         # Don't remove messages if the user is idle (no mouse or keyboard input) for longer than idle_threshold seconds
         sticky_history      = "yes";         # Make notifications remain until clicked on (yes) or timeout as normal (no) when recalled from history
         history_length      = "20";          # Maximum amount of notifications kept in history
 
-        # dmenu               = /usr/bin/dmenu -p dunst:
-        # browser             = /usr/bin/firefox -new-tab
+        dmenu               = ''${pkgs.rofi}/bin/rofi -dmenu -p dunst:'';
+        browser             = ''${pkgs.google-chrome}/bin/google-chrome-stable'';
       };
 
       shortcuts = {
@@ -95,7 +96,7 @@ with pkgs;
         history = "mod1+grave";
 
         # Context menu
-        # context = "ctrl+shift+period";
+        context = "ctrl+shift+period";
 
       };
     };

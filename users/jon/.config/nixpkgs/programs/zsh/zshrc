@@ -31,16 +31,16 @@ rgrep() { grep -iR $1 *; }
 f() { find ./ | grep $1; }
 
 # ssh autocompletion should use ssh config
-h=()
-if [[ -r ~/.ssh/config ]]; then
-  h=($h ${${${(@M)${(f)"$(cat ~/.ssh/config)"}:#Host *}#Host }:#*[*?]*})
-fi
-if [[ -r ~/.ssh/known_hosts ]]; then
-  h=($h ${${${(f)"$(cat ~/.ssh/known_hosts{,2} || true)"}%%\ *}%%,*}) 2>/dev/null
-fi
-if [[ $#h -gt 0 ]]; then
-  zstyle ':completion:*:hosts' hosts $h
-fi
+# h=()
+# if [[ -r ~/.ssh/config ]]; then
+#   h=($h ${${${(@M)${(f)"$(cat ~/.ssh/config)"}:#Host *}#Host }:#*[*?]*})
+# fi
+# if [[ -r ~/.ssh/known_hosts ]]; then
+#   h=($h ${${${(f)"$(cat ~/.ssh/known_hosts{,2} || true)"}%%\ *}%%,*}) 2>/dev/null
+# fi
+# if [[ $#h -gt 0 ]]; then
+#   zstyle ':completion:*:hosts' hosts $h
+# fi
 
 # Autorun TMUX
 # if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then

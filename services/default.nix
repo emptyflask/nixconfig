@@ -9,12 +9,13 @@
 
     elasticsearch = {
       enable = true;
-      plugins = [ ];
+      # plugins = [ analysis-icu analysis-phonetic ];
     };
 
     emacs.enable                = false;
     gnome3.gnome-keyring.enable = true;
     gnome3.gpaste.enable        = false;
+    keybase.enable              = true;
     locate.enable               = true;
 
     mpd = {

@@ -2,6 +2,7 @@
   programs.zsh = {
     enable = true;
     enableAutosuggestions = true;
+    defaultKeymap = "viins";
     history.extended = true;
     initExtra = builtins.readFile ./zshrc;
     loginExtra = ''

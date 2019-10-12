@@ -78,7 +78,6 @@
         gnupg
         gotop
         htop
-        jq
         lsof
         neovim
         nmap
@@ -86,7 +85,7 @@
         p7zip
         pciutils
         ripgrep
-        tmux
+        rsync
         tree
         universal-ctags
         unrar
@@ -148,6 +147,7 @@
 
   virtualisation.virtualbox = {
     host.enable = true;
+    host.addNetworkInterface = true;
   };
 
   # This value determines the NixOS release with which your system is to be

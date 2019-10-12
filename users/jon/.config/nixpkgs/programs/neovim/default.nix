@@ -26,6 +26,13 @@ with pkgs;
         let g:haskell_enable_typeroles = 1        " to enable highlighting of type roles
         let g:haskell_enable_static_pointers = 1  " to enable highlighting of `static`
         let g:haskell_backpack = 1                " to enable highlighting of backpack keywords
+
+        " tmux navigator
+        let g:tmux_navigator_no_mappings = 1
+        nnoremap <silent> <A-h> :TmuxNavigateLeft<cr>
+        nnoremap <silent> <A-j> :TmuxNavigateDown<cr>
+        nnoremap <silent> <A-k> :TmuxNavigateUp<cr>
+        nnoremap <silent> <A-l> :TmuxNavigateRight<cr>
       '';
 
       plug.plugins = with pkgs.vimPlugins; [
@@ -38,6 +45,7 @@ with pkgs;
         deoplete-nvim
         elm-vim
         fastfold
+        floobits-neovim
         fugitive
         fzf-vim
         fzfWrapper
@@ -46,6 +54,7 @@ with pkgs;
         gruvbox
         haskell-vim
         hlint-refactor
+        # intero-neovim
         lightline-vim
         neco-ghc
         neosnippet
@@ -68,6 +77,7 @@ with pkgs;
         vim-speeddating
         vim-startify
         vim-test
+        vim-tmux-navigator
         vim-unimpaired
         vimproc
         vimwiki
