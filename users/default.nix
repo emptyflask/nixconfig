@@ -11,6 +11,7 @@
       extraGroups = [
         "audio"
         "networkmanager"
+        "postgres"
         "sabnzbd"
         "wheel"
       ];
