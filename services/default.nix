@@ -7,6 +7,8 @@
 
     dbus.packages = with pkgs; [ gnome3.dconf ];
 
+    devmon.enable = true;
+
     elasticsearch = {
       enable = true;
       # plugins = [ analysis-icu analysis-phonetic ];
@@ -14,7 +16,7 @@
 
     emacs.enable                = false;
     gnome3.gnome-keyring.enable = true;
-    gnome3.gpaste.enable        = false;
+    kbfs.enable                 = true; # $HOME/keybase
     keybase.enable              = true;
     locate.enable               = true;
 
@@ -38,6 +40,8 @@
     samba.enable    = true;
 
     udev.packages = [ pkgs.yubikey-personalization ];
+
+    udisks2.enable = true;
 
     nginx      = import ./nginx;
     openvpn    = import ./openvpn;

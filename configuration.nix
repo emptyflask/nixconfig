@@ -111,6 +111,9 @@
 
   in common ++ (if config.services.xserver.enable then x else nox);
 
+  # For USB mounting support (https://nixos.wiki/wiki/PCManFM)
+  environment.variables.GIO_EXTRA_MODULES = [ "${pkgs.gvfs}/lib/gio/modules" ];
+
   fonts.fonts = with pkgs; [
     corefonts
     dejavu_fonts
