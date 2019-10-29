@@ -36,16 +36,16 @@ in {
     small.steam
     small.steam-run
 
-    albert     # ctrl-space
+    albert              # ctrl-space
     antibody
-    calibre    # e-book library
+    calibre             # e-book library
     dmenu
     dropbox
-    evince     # PDF viewer
+    evince              # PDF viewer
     exercism
     fasd
     fd
-    flameshot
+    flameshot           # screenshots (PrtSc)
     fortune
     gimp
     ghc
@@ -56,21 +56,22 @@ in {
     # haskellPackages.intero
     htop
     i3lock-fancy
-    irssi
     jq
-    kitty    # terminal
+    kitty               # terminal
+    lxmenu-data         # installed apps
     mplayer
     mpv
     ncmpcpp
-    neomutt  # CLI mail
+    neomutt             # CLI mail
     nix-zsh-completions
     nodejs
     pavucontrol
-    pcmanfm  # GUI file manager
-    ranger   # CLI file manager
+    pcmanfm             # GUI file manager
+    ranger              # CLI file manager
     ripgrep
     ruby
-    scrot    # CLI screenshotter
+    scrot               # CLI screenshotter
+    shared_mime_info    # recognize file types
     spotify
     stalonetray
     thunderbird
@@ -80,8 +81,8 @@ in {
     vlc
     weechat
     yarn
-    zathura # minimal PDF viewer
-    zeal
+    zathura             # minimal PDF viewer
+    zeal                # docs
   ];
 
   gtk = {
@@ -232,6 +233,7 @@ in {
   imports = [
     ./services/dunst
     ./services/polybar
+    ./programs/git
     ./programs/neovim
     ./programs/tmux
     ./programs/vim
