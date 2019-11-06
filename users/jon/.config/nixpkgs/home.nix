@@ -30,7 +30,7 @@ in {
   home.packages = with pkgs; [
     unstable.blender
     unstable.postman
-    unstable.scribus
+    unstable.scribusUnstable
     unstable.signal-desktop
     unstable.slack
     small.steam
@@ -83,6 +83,27 @@ in {
     yarn
     zathura             # minimal PDF viewer
     zeal                # docs
+
+    # fonts
+    aileron
+    eunomia
+    f5_6
+    ferrum
+    helvetica-neue-lt-std
+    league-of-moveable-type
+    libre-baskerville
+    libre-bodoni
+    libre-caslon
+    libre-franklin
+    national-park-typeface
+    norwester-font
+    medio
+    penna
+    route159
+    seshat
+    tenderness
+    vegur
+    vistafonts
   ];
 
   gtk = {
