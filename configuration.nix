@@ -148,9 +148,15 @@
 
   hardware.opengl.driSupport32Bit = true;
 
-  virtualisation.virtualbox = {
-    host.enable = true;
-    host.addNetworkInterface = true;
+  virtualisation = {
+    docker = {
+      enable = true;
+      autoPrune.enable = true;
+    };
+    virtualbox = {
+      host.enable = true;
+      host.addNetworkInterface = true;
+    };
   };
 
   # This value determines the NixOS release with which your system is to be
