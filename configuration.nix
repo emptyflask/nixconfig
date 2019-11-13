@@ -37,7 +37,10 @@
       };
       systemd-boot.enable = true;
     };
+
+    # Kernel modules:
     # hide hdmi audio device
+    # disable usb suspend so devices work after waking
     extraModprobeConfig = ''
       options snd_hda_intel enable=1,0
       options usbcore       autosuspend=-1
