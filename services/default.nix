@@ -18,7 +18,13 @@
     gnome3.gnome-keyring.enable = true;
     kbfs.enable                 = true; # $HOME/keybase
     keybase.enable              = true;
-    locate.enable               = true;
+
+    locate = {
+      enable    = true;
+      interval  = "hourly";
+      localuser = null;
+      locate    = pkgs.mlocate;
+    };
 
     mpd = {
       enable = false;

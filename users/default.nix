@@ -11,6 +11,7 @@
       extraGroups = [
         "audio"
         "docker"
+        "mlocate"
         "networkmanager"
         "postgres"
         "sabnzbd"
