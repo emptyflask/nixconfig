@@ -90,7 +90,6 @@
         ripgrep
         rsync
         tree
-        universal-ctags
         unrar
         unzip
         w3m
@@ -103,7 +102,6 @@
       x = [
         feh
         firefox
-        google-chrome
         rxvt_unicode_with-plugins
         xclip
         xidlehook
@@ -119,24 +117,15 @@
 
   fonts.fonts = with pkgs; [
     corefonts
-    dejavu_fonts
-    dina-font
     fira
     fira-code
     fira-code-symbols
-    fira-mono
-    font-awesome-ttf
+    font-awesome
     ibm-plex
-    inconsolata
-    liberation_ttf
-    mplus-outline-fonts
     noto-fonts
     noto-fonts-cjk
     noto-fonts-emoji
-    proggyfonts
-    siji
     ubuntu_font_family
-    vistafonts
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -149,6 +138,7 @@
   hardware.pulseaudio.enable = true;
   hardware.pulseaudio.support32Bit = true;
 
+  hardware.opengl.enable = true;
   hardware.opengl.driSupport32Bit = true;
 
   virtualisation = {
@@ -156,6 +146,7 @@
       enable = true;
       autoPrune.enable = true;
     };
+    libvirtd.enable = true;
     virtualbox = {
       host.enable = true;
       host.addNetworkInterface = true;

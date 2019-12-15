@@ -1,15 +1,18 @@
+{pkgs, ...}:
+
 {
   programs.zsh = {
     enable = true;
     enableAutosuggestions = true;
     defaultKeymap = "viins";
     history.extended = true;
-    initExtra = builtins.readFile ./zshrc;
-    loginExtra = ''
-      setopt extendedglob
-      bindkey '^R' history-incremental-pattern-search-backward
-      bindkey '^F' history-incremental-pattern-search-forward
+    initExtra = (builtins.readFile ./zshrc) + ''
+      eval "$(${pkgs.direnv}/bin/direnv hook zsh)"
+      eval "$(${pkgs.fasd}/bin/fasd --init auto)"
+      eval $(${pkgs.coreutils}/bin/dircolors -b $HOME/.cache/antibody/https-COLON--SLASH--SLASH-github.com-SLASH-trapd00r-SLASH-LS_COLORS/LS_COLORS)
+      source "$(${pkgs.fzf}/bin/fzf-share)/key-bindings.zsh"
     '';
+
     shellAliases = {
       ls = "ls --color -F";
       ll = "ls -l";
@@ -59,6 +62,23 @@
       _JAVA_AWT_WM_NONREPARENTING=1;
       EDITOR = "nvim";
       WORDCHARS="*?[]~&;!$%^<>";
+
+      FZF_DEFAULT_COMMAND="${pkgs.ripgrep}/bin/rg --files";
+
+      FZF_DEFAULT_OPTS=''
+        --color=bg+:#3c3836,bg:#1d2021,spinner:#8ec07c,hl:#83a598
+        --color=fg:#bdae93,header:#83a598,info:#fabd2f,pointer:#8ec07c
+        --color=marker:#8ec07c,fg+:#ebdbb2,prompt:#fabd2f,hl+:#83a598
+      '';
+
+      FZF_ALT_C_OPTS="--preview '${pkgs.tree}/bin/tree -C {} | head -100'";
+
+      FZF_CTRL_T_OPTS=''
+        --preview '[[ \$(${pkgs.file}/bin/file --mime {}) =~ binary ]] &&
+          echo {} is a binary file ||
+          (bat --style=numbers --color=always {} ||
+          cat {}) 2> /dev/null | head -100'
+      '';
     };
   };
 }

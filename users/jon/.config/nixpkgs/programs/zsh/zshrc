@@ -9,11 +9,11 @@ echo "
   zdharma/fast-syntax-highlighting
 " | antibody bundle
 
-# disable autocorrection
+setopt extendedglob
 unsetopt correct
 
-bindkey "\e[1~" beginning-of-line
-bindkey "\e[4~" end-of-line
+bindkey "^[[1~" beginning-of-line
+bindkey "^[[4~" end-of-line
 bindkey '^[[H'  beginning-of-line                   # HOME
 bindkey '^[[F'  end-of-line                         # END
 bindkey '^?'    backward-delete-char                # BACKSPACE
@@ -21,7 +21,9 @@ bindkey '^[[3~' delete-char                         # DELETE
 bindkey '^[[2~' overwrite-mode                      # INSERT
 bindkey '^[[5~' history-beginning-search-backward   # PAGE UP
 bindkey '^[[6~' history-beginning-search-forward    # PAGE DOWN
-bindkey '^R'    history-incremental-search-backward # SEARCH HISTORY
+# bindkey '^R'    history-incremental-search-backward # SEARCH HISTORY
+# bindkey '^R'    history-incremental-pattern-search-backward
+# bindkey '^F'    history-incremental-pattern-search-forward
 
 # Ensure that arrow keys work as they should
 # bindkey '\e[A' up-line-or-history
@@ -53,11 +55,3 @@ if [ -x /run/current-system/sw/bin/command-not-found ]; then
         /run/current-system/sw/bin/command-not-found $@
     }
 fi
-
-eval "$(direnv hook zsh)"
-
-eval "$(fasd --init auto)"
-
-eval $( dircolors -b $HOME/.cache/antibody/https-COLON--SLASH--SLASH-github.com-SLASH-trapd00r-SLASH-LS_COLORS/LS_COLORS )
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

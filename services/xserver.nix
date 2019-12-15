@@ -1,6 +1,7 @@
 {
   enable = true;
-  layout = "us(altgr-intl)";
+  layout = "us";
+  xkbVariant = "altgr-intl";
   # xkbOptions = "eurosign:e";
 
   # Enable touchpad support.

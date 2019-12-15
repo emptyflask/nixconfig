@@ -11,6 +11,7 @@
       extraGroups = [
         "audio"
         "docker"
+        "libvirtd"
         "mlocate"
         "networkmanager"
         "postgres"

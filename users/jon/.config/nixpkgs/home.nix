@@ -2,15 +2,16 @@
 
 let
   unstable = import <nixos-unstable>       { config = { allowUnfree = true; }; };
-  small    = import <nixos-unstable-small> { config = { allowUnfree = true; }; };
-
-  # cart = import "/home/jon/dev/sxsw/cart/default.nix";
 
   myLocation = "home";
   locations = {
     home = {
       lat = 30.2772;
       long = -97.7357;
+    };
+    work = {
+      lat = 30.2770;
+      long = -97.7432;
     };
   };
 
@@ -21,23 +22,21 @@ in {
 
   nixpkgs.config.allowUnfree = true;
 
-  nixpkgs.config.packageOverrides = self : rec {
-    blender = self.blender.override {
-      cudaSupport = true;
-    };
-  };
+  # nixpkgs.config.packageOverrides = self : rec {
+  #   blender = self.blender.override {
+  #     cudaSupport = true;
+  #   };
+  # };
 
   home.packages = with pkgs; [
-    unstable.blender
     unstable.postman
-    unstable.scribusUnstable
-    unstable.signal-desktop
-    unstable.slack
-    small.steam
-    small.steam-run
+    unstable.steam
+    unstable.steam-run
 
     albert              # ctrl-space
     antibody
+    bat
+    blender
     calibre             # e-book library
     dmenu
     dropbox
@@ -49,6 +48,8 @@ in {
     fortune
     gimp
     ghc
+    gnumake
+    google-chrome
     haskellPackages.ghcid
     # haskellPackages.greenclip  # a different clipboard manager
     haskellPackages.hindent
@@ -70,14 +71,19 @@ in {
     ranger              # CLI file manager
     ripgrep
     ruby
+    rubyPackages_2_6.pry
+    scribusUnstable
     scrot               # CLI screenshotter
     shared_mime_info    # recognize file types
+    signal-desktop
+    slack
     spotify
     stalonetray
     thunderbird
     tig
     tmux
     units
+    universal-ctags
     vlc
     weechat
     yarn
@@ -86,21 +92,34 @@ in {
 
     # fonts
     aileron
+    dejavu_fonts
+    dina-font
     eunomia
     f5_6
     ferrum
+    fira
+    fira-code
+    fira-code-symbols
+    fira-mono
+    font-awesome
     helvetica-neue-lt-std
+    ibm-plex
+    inconsolata
     league-of-moveable-type
+    liberation_ttf
     libre-baskerville
     libre-bodoni
     libre-caslon
     libre-franklin
+    medio
+    mplus-outline-fonts
     national-park-typeface
     norwester-font
-    medio
     penna
+    proggyfonts
     route159
     seshat
+    siji
     tenderness
     vegur
     vistafonts
@@ -127,19 +146,6 @@ in {
     home-manager.enable = true;
 
     direnv.enable = true;
-
-#     emacs = {
-#       enable = true;
-#       extraPackages = epkgs: with epkgs; [
-#         evil
-#         evil-cleverparens
-#         evil-indent-textobject
-#         evil-surround
-#         magit
-#         nix-mode
-#         undo-tree
-#       ];
-#     };
 
     firefox = {
       enable = true;
@@ -235,21 +241,6 @@ in {
       name = "Adwaita";
     };
   };
-
-#  systemd.user.services.sxsw-cart = {
-#    Unit = {
-#      Description = "SXSW Cart";
-#    };
-#    Service = {
-#      WorkingDirectory = "/home/jon/dev/sxsw/cart";
-#      # ExecStart = "nix-shell --run 'bundle exec foreman start -p 5001'";
-#      ExecStart = "${(import ./default.nix).wrapper}";
-#      ExecStart = pkgs.writeScript "wrapper" ''
-#              #! ${pkgs.stdenv.shell} -el
-#              exec ${usercfg.home.activationPackage}/activate
-#      '';
-#    };
-#  };
 
   imports = [
     ./services/dunst

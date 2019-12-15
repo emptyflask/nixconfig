@@ -53,8 +53,9 @@ with pkgs;
 
         font-0 = "IBM Plex Sans:size=10;0";
         font-1 = "Fira Mono:size=10;0";
-        font-2 = "FontAwesome:size=10;1";
-        font-3 = "FontAwesome;pixelsize=10;1";
+        font-2 = "Font Awesome 5 Free:style=Regular:pixelsize=10;1";
+        font-3 = "Font Awesome 5 Free:style=Solid:pixelsize=10;1";
+        font-4 = "Font Awesome 5 Brands:pixelsize=10;1";
 
         tray-position = "right";
         tray-padding  = 2;

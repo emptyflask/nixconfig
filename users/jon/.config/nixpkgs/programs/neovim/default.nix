@@ -15,50 +15,37 @@ with pkgs;
     vimAlias  = false;
 
     configure = {
-      customRC = (builtins.readFile ../vim/vimrc) + ''
-        let $NVIM_TUI_ENABLE_TRUE_COLOR=1 
-        filetype plugin indent on
-
-        let g:haskell_enable_quantification = 1   " to enable highlighting of `forall`
-        let g:haskell_enable_recursivedo = 1      " to enable highlighting of `mdo` and `rec`
-        let g:haskell_enable_arrowsyntax = 1      " to enable highlighting of `proc`
-        let g:haskell_enable_pattern_synonyms = 1 " to enable highlighting of `pattern`
-        let g:haskell_enable_typeroles = 1        " to enable highlighting of type roles
-        let g:haskell_enable_static_pointers = 1  " to enable highlighting of `static`
-        let g:haskell_backpack = 1                " to enable highlighting of backpack keywords
-
-        " tmux navigator
-        let g:tmux_navigator_no_mappings = 1
-        nnoremap <silent> <A-h> :TmuxNavigateLeft<cr>
-        nnoremap <silent> <A-j> :TmuxNavigateDown<cr>
-        nnoremap <silent> <A-k> :TmuxNavigateUp<cr>
-        nnoremap <silent> <A-l> :TmuxNavigateRight<cr>
-      '';
+      customRC = (lib.strings.concatMapStringsSep "\n" builtins.readFile [
+        ./config.vim
+        ./coc.vim
+        ./haskell.vim
+        ./keymap.vim
+        ./netrw.vim
+        ./rename.vim
+        ./status.vim
+        ./theme.vim
+        ./tmux.vim
+      ]);
 
       plug.plugins = with pkgs.vimPlugins; [
         Hoogle
-        LanguageClient-neovim
         Rename
         Tabular
         Tagbar
-        ale
-        deoplete-nvim
+        coc-nvim
         elm-vim
         fastfold
-        floobits-neovim
         fugitive
         fzf-vim
         fzfWrapper
         ghc-mod-vim
         gitgutter
-        gruvbox
+        gruvbox-community
         haskell-vim
         hlint-refactor
-        # intero-neovim
+        intero-neovim
         lightline-vim
         neco-ghc
-        neosnippet
-        neosnippet-snippets
         repeat
         sensible
         surround
@@ -70,7 +57,6 @@ with pkgs;
         vim-go
         vim-grepper
         vim-gutentags
-        # vim-hindent
         vim-nix
         vim-polyglot
         vim-snippets
