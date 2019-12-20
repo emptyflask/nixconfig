@@ -65,6 +65,7 @@ in {
     ncmpcpp
     neomutt             # CLI mail
     nix-zsh-completions
+    nixfmt
     nodejs
     pavucontrol
     pcmanfm             # GUI file manager

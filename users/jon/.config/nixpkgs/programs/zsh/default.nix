@@ -39,10 +39,6 @@
       json="jq '.' -C | more -R";
 
       m="ncmpcpp";
-      ms="mpc";
-      mm="mpc toggle";
-      mn="mpc next";
-      mp="mpc prev";
 
       # ghc="stack ghc -- -Wall";
       # ghci="stack ghci";
@@ -55,6 +51,8 @@
       nixrm="nix-env -q | fzf | xargs -I{} nix-env -e {}";
 
       j="jira ls -a emptyflask";
+
+      open="xdg-open";
     };
 
     sessionVariables = {
