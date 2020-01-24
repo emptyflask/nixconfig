@@ -29,6 +29,7 @@ in {
   # };
 
   home.packages = with pkgs; [
+    # unstable.lutris
     unstable.postman
     unstable.steam
     unstable.steam-run

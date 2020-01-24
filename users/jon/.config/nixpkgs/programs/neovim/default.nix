@@ -14,61 +14,61 @@ with pkgs;
     viAlias   = true;
     vimAlias  = false;
 
-    configure = {
-      customRC = (lib.strings.concatMapStringsSep "\n" builtins.readFile [
-        ./config.vim
-        ./coc.vim
-        ./haskell.vim
-        ./keymap.vim
-        ./netrw.vim
-        ./rename.vim
-        ./status.vim
-        ./theme.vim
-        ./tmux.vim
-      ]);
+    withNodeJs = true;
 
-      plug.plugins = with pkgs.vimPlugins; [
-        Hoogle
-        Rename
-        Tabular
-        Tagbar
-        coc-nvim
-        elm-vim
-        fastfold
-        fugitive
-        fzf-vim
-        fzfWrapper
-        ghc-mod-vim
-        gitgutter
-        gruvbox-community
-        haskell-vim
-        hlint-refactor
-        intero-neovim
-        lightline-vim
-        neco-ghc
-        repeat
-        sensible
-        surround
-        tlib
-        undotree
-        vim-commentary
-        vim-dispatch
-        vim-elixir
-        vim-go
-        vim-grepper
-        vim-gutentags
-        vim-nix
-        vim-polyglot
-        vim-snippets
-        vim-speeddating
-        vim-startify
-        vim-test
-        vim-tmux-navigator
-        vim-unimpaired
-        vimproc
-        vimwiki
-      ];
+    extraConfig = (lib.strings.concatMapStringsSep "\n" builtins.readFile [
+      ./config.vim
+      ./coc.vim
+      ./haskell.vim
+      ./keymap.vim
+      ./netrw.vim
+      ./rename.vim
+      ./status.vim
+      ./theme.vim
+      ./tmux.vim
+    ]);
 
-    };
+    plugins = with unstable.vimPlugins; [
+      Hoogle
+      Rename
+      Tabular
+      Tagbar
+      coc-nvim
+      elm-vim
+      fastfold
+      fugitive
+      fzf-vim
+      fzfWrapper
+      ghc-mod-vim
+      gitgutter
+      gruvbox-community
+      haskell-vim
+      hlint-refactor
+      intero-neovim
+      lightline-vim
+      neco-ghc
+      repeat
+      sensible
+      tlib
+      undotree
+      vim-commentary
+      vim-dispatch
+      vim-elixir
+      vim-go
+      vim-grepper
+      vim-gutentags
+      vim-nix
+      vim-polyglot
+      vim-sandwich
+      vim-snippets
+      vim-speeddating
+      vim-startify
+      vim-test
+      vim-tmux-navigator
+      vim-unimpaired
+      vimproc
+      vimwiki
+    ];
+
   };
 }

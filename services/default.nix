@@ -26,6 +26,8 @@
       locate    = pkgs.mlocate;
     };
 
+    lorri.enable = true;
+
     mpd = {
       enable = false;
       musicDirectory = "/media/repository/music";

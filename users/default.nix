@@ -10,6 +10,7 @@
       uid = 1000;
       extraGroups = [
         "audio"
+        "dialout"
         "docker"
         "libvirtd"
         "mlocate"

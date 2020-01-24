@@ -41,27 +41,16 @@ set smartcase " Ignore case when searching lowercase
 " incremental command live feedback
 set inccommand=nosplit
 
-" Line Wrapping ***************************************************************
+" Wrapping and Scrolling ******************************************************
 set nowrap
 set linebreak " Wrap at word
-
-" Sessions ********************************************************************
-" Sets what is saved when you save a session (:mksession path/to/session.vim)
-set sessionoptions=blank,buffers,curdir,folds,help,resize,tabpages,winsize
-
-" Misc ************************************************************************
-set backspace=indent,eol,start
-set number " Show line numbers
-set matchpairs+=<:>
-set vb t_vb= " Turn off the bell, this could be more annoying, but I'm not sure how
-
-" Reload the file when it has been chaged outside of vim
-set autoread
+set scrolloff=4
+set sidescrolloff=4
 
 " Set list Chars - for showing characters that are not
 " normally displayed i.e. whitespace, tabs, EOL
-set listchars=trail:·,tab:‣\ 
-set nolist
+set listchars=trail:·,tab:‣\ ,extends:,precedes:,nbsp:␣
+set list
 nmap <silent> <leader>s :set nolist!<CR>
 
 " Spaces, not tabs
@@ -71,6 +60,19 @@ set shiftround
 set tabstop=2
 set expandtab
 set smarttab " a <Tab> in an indent inserts 'shiftwidth' spaces
+
+" Sessions ********************************************************************
+" Sets what is saved when you save a session (:mksession path/to/session.vim)
+set sessionoptions=blank,buffers,curdir,folds,help,resize,tabpages,winsize
+
+" Misc ************************************************************************
+set backspace=indent,eol,start
+set number " Show line numbers
+set matchpairs+=<:>
+" set visualbell t_vb= " Turn off the bell, this could be more annoying, but I'm not sure how
+
+" Reload the file when it has been chaged outside of vim
+set autoread
 
 " Speed up large files
 let g:LargeFile = 64
