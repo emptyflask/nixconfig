@@ -57,15 +57,16 @@
         editor = "nvim";
       };
 
-      credential.helper = "cache";
-
-      diff.tool = "vimdiff";
-      merge.tool = "vimdiff";
-      merge.conflictstyle = "diff3";
+      diff.tool                   = "vimdiff";
+      merge.tool                  = "vimdiff";
+      merge.conflictstyle         = "diff3";
       "mergetool \"vimdiff\"".cmd = "nvim -d $LOCAL $REMOTE $MERGED";
 
-      ghi.token = "!security find-internet-password -a emptyflask -s github.com -l 'ghi token' -w";
-      github.user = "emptyflask";
+      credential.helper = "${pkgs.gitAndTools.pass-git-helper}/bin/pass-git-helper";
+      github.user       = "emptyflask";
+      ghi.token         = "!${pkgs.pass}/bin/pass api.github.com | ${pkgs.coreutils}/bin/head -1";
+
+      pull.ff = "only";
       push.default = "upstream";
       rerere.enabled = true;
 

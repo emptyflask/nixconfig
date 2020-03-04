@@ -70,6 +70,7 @@ in {
     nodejs
     pavucontrol
     pcmanfm             # GUI file manager
+    qalculate-gtk       # calculator
     ranger              # CLI file manager
     ripgrep
     ruby
@@ -185,6 +186,8 @@ in {
       defaultCacheTtl  = (60 * 60 * 4);
       enableSshSupport = true;
     };
+
+    lorri.enable = true;
 
     mpd.enable = true;
 

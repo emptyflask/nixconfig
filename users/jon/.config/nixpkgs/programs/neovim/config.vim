@@ -22,7 +22,7 @@ set wildignore=*.gif,*.jpg,*.png,*.o,*.obj,.git,.svn,tmp
 set foldlevel=10
 
 let mapleader=","
-set clipboard=unnamed 
+set clipboard^=unnamedplus
 
 " Indenting ********************************************************************
 set ai " Automatically set the indent of a new line (local to buffer)

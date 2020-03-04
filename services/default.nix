@@ -26,7 +26,9 @@
       locate    = pkgs.mlocate;
     };
 
-    lorri.enable = true;
+    logind.extraConfig = ''
+      RuntimeDirectorySize=2G
+    '';
 
     mpd = {
       enable = false;
