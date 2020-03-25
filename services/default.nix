@@ -49,7 +49,10 @@
     sabnzbd.enable  = true;
     samba.enable    = true;
 
-    udev.packages = [ pkgs.yubikey-personalization ];
+    udev.packages = [
+      pkgs.libu2f-host
+      pkgs.yubikey-personalization
+    ];
 
     udisks2.enable = true;
 

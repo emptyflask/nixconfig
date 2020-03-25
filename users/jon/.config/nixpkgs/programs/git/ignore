@@ -8,10 +8,12 @@
 .env.staging
 .envrc
 .notags
+.nvimrc
 .powenv
 .rbenv-version
 .ruby-version
 .rvmrc
+.vimrc
 GPATH
 GRTAGS
 GTAGS
@@ -19,3 +21,5 @@ Gemfile.local
 Gemfile.local.lock
 node_modules/
 tags
+tags.lock
+tags.temp

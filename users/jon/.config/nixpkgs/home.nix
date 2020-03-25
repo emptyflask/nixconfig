@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{config, pkgs, lib, ... }:
 
 let
   unstable = import <nixos-unstable>       { config = { allowUnfree = true; }; };
@@ -30,6 +30,7 @@ in {
 
   home.packages = with pkgs; [
     # unstable.lutris
+    unstable.discord
     unstable.postman
     unstable.steam
     unstable.steam-run
@@ -90,15 +91,18 @@ in {
     vlc
     weechat
     yarn
+    yubioath-desktop
     zathura             # minimal PDF viewer
     zeal                # docs
 
     # fonts
     aileron
+    comfortaa
     dejavu_fonts
     dina-font
     eunomia
     f5_6
+    fantasque-sans-mono
     ferrum
     fira
     fira-code
@@ -106,8 +110,10 @@ in {
     fira-mono
     font-awesome
     helvetica-neue-lt-std
+    hermit
     ibm-plex
     inconsolata
+    iosevka
     league-of-moveable-type
     liberation_ttf
     libre-baskerville
@@ -117,6 +123,7 @@ in {
     medio
     mplus-outline-fonts
     national-park-typeface
+    nerdfonts
     norwester-font
     penna
     proggyfonts
@@ -127,6 +134,8 @@ in {
     vegur
     vistafonts
   ];
+
+  fonts.fontconfig.enable = true;
 
   gtk = {
     enable = true;
@@ -155,10 +164,6 @@ in {
       enableIcedTea = true;
     };
 
-    rofi = {
-      enable = true;
-      theme = "gruvbox-dark";
-    };
   };
 
   services = {
@@ -252,6 +257,7 @@ in {
     ./services/polybar
     ./programs/git
     ./programs/neovim
+    ./programs/rofi
     ./programs/tmux
     ./programs/vim
     ./programs/zsh
