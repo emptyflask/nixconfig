@@ -149,6 +149,7 @@
     libvirtd.enable = true;
     virtualbox = {
       host.enable = true;
+      host.enableExtensionPack = true;
       host.addNetworkInterface = true;
     };
   };
