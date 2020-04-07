@@ -6,7 +6,7 @@ in
 
 with pkgs;
 
-{ 
+{
   programs.neovim = {
     enable    = true;
     package   = unstable.neovim-unwrapped;

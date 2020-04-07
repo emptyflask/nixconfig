@@ -123,7 +123,6 @@ in {
     medio
     mplus-outline-fonts
     national-park-typeface
-    nerdfonts
     norwester-font
     penna
     proggyfonts
@@ -253,9 +252,12 @@ in {
   };
 
   imports = [
+    ./accounts
     ./services/dunst
     ./services/polybar
+    # ./services/spotifyd
     ./programs/git
+    ./programs/neomutt
     ./programs/neovim
     ./programs/rofi
     ./programs/tmux
