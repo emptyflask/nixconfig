@@ -1,11 +1,17 @@
 { pkgs, ... }:
+
+let
+  unstable = import <nixos-unstable> {};
+in
+
 with pkgs;
 {
   services.polybar = {
     enable = true;
-    package = pkgs.polybar.override {
+    package = unstable.polybar.override {
       alsaSupport = true;
       githubSupport = true;
+      mpdSupport = true;
     };
     config = {
       "colors" = {
@@ -56,6 +62,7 @@ with pkgs;
         font-2 = "Font Awesome 5 Free:style=Regular:pixelsize=10;1";
         font-3 = "Font Awesome 5 Free:style=Solid:pixelsize=10;1";
         font-4 = "Font Awesome 5 Brands:pixelsize=10;1";
+        font-5 = "Noto Sans Symbols2:size=13;2";
 
         tray-position = "right";
         tray-padding  = 2;
@@ -76,12 +83,12 @@ with pkgs;
         "inherit"      = "commonbar";
         modules-left   = "xmonad-workspaces xmonad-title";
         modules-center = "cpu memory swap";
-        modules-right  = "volume date openvpn-status";
+        modules-right  = "mpd volume popup-calendar openvpn-status";
       };
 
       "module/xmonad" = {
         type = "custom/script";
-        exec = "dbus-monitor type='signal',path='/user/xmonad/log',interface='user.xmonad.log',member='DynamicLogWithPP' | sed -En -u 's/^.*string..([^:].*)\".*$/\1/p'";
+        exec = "${pkgs.dbus}/bin/dbus-monitor type='signal',path='/user/xmonad/log',interface='user.xmonad.log',member='DynamicLogWithPP' | sed -En -u 's/^.*string..([^:].*)\".*$/\1/p'";
         tail = true;
       };
 
@@ -159,10 +166,26 @@ with pkgs;
         format-underline = "\${colors.blue}";
       };
 
+      "module/popup-calendar" = {
+        type = "custom/script";
+        exec = "~/.config/polybar/popup-calendar.sh";
+        interval = 1;
+        click-left = "~/.config/polybar/popup-calendar.sh --popup &";
+        format-padding = 2;
+        format-underline = "\${colors.blue}";
+      };
+
       "module/openvpn-status" = {
         type = "custom/script";
         exec = "printf 'VPN: ' && (pgrep -a openvpn$ | ${pkgs.coreutils}/bin/head -n 1 | awk '{path=$NF;n=split(path,A,\"-\");print A[n]}' | ${pkgs.coreutils}/bin/cut -f 1 && echo down) | ${pkgs.coreutils}/bin/head -n 1";
         interval = 5;
+        label = "%output:0:15:...%";
+        format = "<label>";
+        format-underline = "#268bd2";
+        format-prefix = "🖧 ";
+        format-prefix-foreground = "#5b";
+        click-left = "sudo systemctl start openvpn-sxsw";
+        click-right = "sudo systemctl stop openvpn-sxsw";
       };
 
       "module/backlight" = {
@@ -240,6 +263,26 @@ with pkgs;
         label-full = "%percentage%%";
       };
 
+      "module/mpd" = {
+        type = "internal/mpd";
+        host = "127.0.0.1";
+        interval = 2;
+        format-online = "(<label-time>)  <label-song>    <icon-prev>  <icon-stop>  <toggle>  <icon-next>";
+        format-playing = "\${self.format-online}";
+        format-paused = "\${self.format-online}";
+        format-stopped = "\${self.format-online}";
+        label-offline = "🎜 mpd is offline";
+        label-song = "%artist% - %title%";
+        label-song-maxlen = 40;
+        icon-play = "⏵";
+        icon-pause = "⏸";
+        icon-stop = "⏹";
+        icon-prev = "⏮";
+        icon-next = "⏭";
+        toggle-on-foreground = "#ff";
+        toggle-off-foreground = "#55";
+      };
+
       "settings" = {
         screenchange-reload = true;
       };
@@ -251,8 +294,57 @@ with pkgs;
     };
 
     script = ''
-      export PATH=${lib.makeBinPath [ pkgs.gnused pkgs.dbus pkgs.procps-ng pkgs.gnugrep pkgs.gawk ]}:$PATH
+      export PATH=${lib.makeBinPath [ gawk gnugrep gnused procps-ng ]}:$PATH
       polybar desktop &
     '';
   };
+
+  xdg.configFile."polybar/popup-calendar.sh" = {
+    text = ''
+      #!/bin/sh
+
+      BAR_HEIGHT=27  # polybar height
+      BORDER_SIZE=0  # border size from your wm settings
+      YAD_WIDTH=222  # 222 is minimum possible value
+      YAD_HEIGHT=193 # 193 is minimum possible value
+      DATE="$(${pkgs.coreutils}/bin/date +"%A  %Y-%m-%d  %I:%M %p")"
+
+      case "$1" in
+      --popup)
+          if [ "$(${pkgs.xdotool}/bin/xdotool getwindowfocus getwindowname)" = "yad-calendar" ]; then
+              exit 0
+          fi
+
+          eval "$(${pkgs.xdotool}/bin/xdotool getmouselocation --shell)"
+          eval "$(${pkgs.xdotool}/bin/xdotool getdisplaygeometry --shell)"
+
+          # X
+          if [ "$((X + YAD_WIDTH / 2 + BORDER_SIZE))" -gt "$WIDTH" ]; then #Right side
+              : $((pos_x = WIDTH - YAD_WIDTH - BORDER_SIZE))
+          elif [ "$((X - YAD_WIDTH / 2 - BORDER_SIZE))" -lt 0 ]; then #Left side
+              : $((pos_x = BORDER_SIZE))
+          else #Center
+              : $((pos_x = X - YAD_WIDTH / 2))
+          fi
+
+          # Y
+          if [ "$Y" -gt "$((HEIGHT / 2))" ]; then #Bottom
+              : $((pos_y = HEIGHT - YAD_HEIGHT - BAR_HEIGHT - BORDER_SIZE))
+          else #Top
+              : $((pos_y = BAR_HEIGHT + BORDER_SIZE))
+          fi
+
+          ${pkgs.yad}/bin/yad \
+            --calendar --undecorated --fixed --close-on-unfocus --no-buttons \
+            --width=$YAD_WIDTH --height=$YAD_HEIGHT --posx=$pos_x --posy=$pos_y \
+            --class="yad-calendar" --borders=0 >/dev/null &
+          ;;
+      *)
+          echo "$DATE"
+          ;;
+      esac
+    '';
+    executable = true;
+  };
+
 }
