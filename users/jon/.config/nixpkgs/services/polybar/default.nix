@@ -119,7 +119,7 @@ with pkgs;
         interval         = 1;
         label            = "%percentage-cores%";
         format           = "<ramp-coreload>";
-        format-underline = "\${colors.yellow}";
+        format-underline = "\${colors.cyan}";
         format-padding   = 1;
 
         ramp-coreload-0 = "▁";
@@ -130,6 +130,8 @@ with pkgs;
         ramp-coreload-5 = "▆";
         ramp-coreload-6 = "▇";
         ramp-coreload-7 = "█";
+        ramp-coreload-0-foreground = "\${colors.darkGray}";
+        ramp-coreload-1-foreground = "\${colors.lightGray}";
         ramp-coreload-2-foreground = "\${colors.yellow}";
         ramp-coreload-3-foreground = "\${colors.yellow}";
         ramp-coreload-4-foreground = "\${colors.yellow}";
@@ -144,7 +146,7 @@ with pkgs;
 
         format-prefix = " ";
         format-prefix-foreground = "\${colors.yellow}";
-        format-underline = "\${colors.yellow}";
+        format-underline = "\${colors.green}";
         label = "%percentage_used%% %gb_used%";
       };
 
@@ -267,7 +269,8 @@ with pkgs;
         type = "internal/mpd";
         host = "127.0.0.1";
         interval = 2;
-        format-online = "(<label-time>)  <label-song>    <icon-prev>  <icon-stop>  <toggle>  <icon-next>";
+        format-online = "<label-time>  <label-song>    <icon-prev>  <icon-stop>  <toggle>  <icon-next>";
+        format-online-underline = "\${colors.green}";
         format-playing = "\${self.format-online}";
         format-paused = "\${self.format-online}";
         format-stopped = "\${self.format-online}";
