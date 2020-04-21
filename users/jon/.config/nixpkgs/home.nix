@@ -1,7 +1,7 @@
-{config, pkgs, lib, ... }:
+{ config, pkgs, lib, ... }:
 
 let
-  unstable = import <nixos-unstable>       { config = { allowUnfree = true; }; };
+  unstable = import <nixos-unstable> { config = { allowUnfree = true; }; };
 
   myLocation = "home";
   locations = {
@@ -35,10 +35,11 @@ in {
     unstable.steam
     unstable.steam-run
 
-    albert              # ctrl-space
+    # albert              # ctrl-space
     antibody
     bat
     blender
+    bmon                # network monitor
     calibre             # e-book library
     dmenu
     dropbox
@@ -54,7 +55,6 @@ in {
     google-chrome
     haskellPackages.ghcid
     # haskellPackages.greenclip  # a different clipboard manager
-    haskellPackages.hindent
     haskellPackages.hlint
     # haskellPackages.intero
     htop
@@ -67,7 +67,6 @@ in {
     ncmpcpp
     neomutt             # CLI mail
     nix-zsh-completions
-    nixfmt
     nodejs
     pavucontrol
     pcmanfm             # GUI file manager
@@ -76,13 +75,13 @@ in {
     ripgrep
     ruby
     rubyPackages_2_6.pry
-    scribusUnstable
+    scribusUnstable     # page layout
     scrot               # CLI screenshotter
     shared_mime_info    # recognize file types
     signal-desktop
     slack
     spotify
-    stalonetray
+    stalonetray         # system tray
     thunderbird
     tig
     tmux
@@ -94,6 +93,11 @@ in {
     yubioath-desktop
     zathura             # minimal PDF viewer
     zeal                # docs
+
+    # formatters
+    unstable.nixfmt
+    unstable.ormolu
+    unstable.uncrustify
 
     # fonts
     aileron
@@ -250,6 +254,7 @@ in {
         haskellPackages.xmonad-extras
       ];
     };
+
     pointerCursor = {
       package = pkgs.gnome3.gnome-themes-standard;
       size = 16; # default = 32; example = 64;

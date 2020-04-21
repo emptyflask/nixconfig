@@ -47,6 +47,7 @@ with pkgs;
       intero-neovim
       lightline-vim
       neco-ghc
+      neoformat
       repeat
       sensible
       tlib
