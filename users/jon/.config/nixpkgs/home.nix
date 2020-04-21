@@ -134,6 +134,11 @@ in {
     vistafonts
   ];
 
+  home.keyboard = {
+    layout = "us";
+    variant = "altgr-intl";
+  };
+
   fonts.fontconfig.enable = true;
 
   gtk = {
