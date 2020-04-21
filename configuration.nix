@@ -49,7 +49,8 @@
   
   networking = {
     hostName = "nixos"; # Define your hostname.
-    wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+    # wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+    networkmanager.enable = true;
 
     firewall = {
       enable = true;
@@ -74,6 +75,7 @@
       # Packages to always install.
       common = [
         ag
+        bind
         binutils
         file
         fzf
@@ -149,7 +151,9 @@
     libvirtd.enable = true;
     virtualbox = {
       host.enable = true;
-      host.enableExtensionPack = true;
+      # enable extension pack to share usb ports, etc.
+      # (requires building virtualbox)
+      host.enableExtensionPack = false;
       host.addNetworkInterface = true;
     };
   };

@@ -226,6 +226,8 @@ in {
       # xautolock -time 5 -locker i3lock-fancy -notify 20 -notifier 'xset dpms force off' & 
       # xautolock -time 7 -locker "systemctl suspend" &    
 
+      ${pkgs.networkmanagerapplet}/bin/nm-applet &
+
       ${pkgs.xidlehook}/bin/xidlehook \
       --not-when-fullscreen \
       --not-when-audio \
