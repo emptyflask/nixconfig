@@ -2,6 +2,11 @@
 {
   xdg.configFile."git/ignore".source = ./ignore;
 
+  xdg.configFile."pass-git-helper/git-pass-mapping.ini".text = ''
+    [github.com*]
+    target=dev/github
+  '';
+
   programs.git = {
     enable = true;
 
