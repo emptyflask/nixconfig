@@ -9,7 +9,10 @@
 
   videoDrivers = [ "nvidia" ];
 
-  displayManager.sddm.enable = true;
+  displayManager = {
+    defaultSession = "xterm";
+    sddm.enable = true;
+  };
 
   screenSection = ''
     Option "metamodes" "nvidia-auto-select +0+0 { ForceFullCompositionPipeline = On }"
@@ -17,9 +20,5 @@
     Option "TripleBuffer" "on"
   '';
 
-  desktopManager = {
-    xfce.enable = true;
-    default = "xfce";
-  };
 }
 

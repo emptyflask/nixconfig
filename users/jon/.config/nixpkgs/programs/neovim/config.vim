@@ -1,9 +1,12 @@
 set termguicolors
 set background=dark
-let $NVIM_TUI_ENABLE_TRUE_COLOR=1 
+let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 
 set nocompatible
 set shell=$SHELL
+
+" Do stuff with the mouse
+set mouse=a
 
 " Allow backgrounding buffers without writing them, and remember marks/undo
 set hidden

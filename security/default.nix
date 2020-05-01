@@ -31,7 +31,7 @@ in
 
   security.pki.certificateFiles = [
     "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt"
-    /root/ssl/certs/rootCA.pem
+    ./ssl/certs/rootCA.pem
   ];
 
   # security.dhparams.enable = true;

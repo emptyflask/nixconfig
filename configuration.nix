@@ -9,9 +9,7 @@
   environment.etc.current-nixos-config.source = ./.;
 
   imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-
+    [ ./hardware-configuration.nix
       ./security
       ./services
       ./users
@@ -23,22 +21,25 @@
   boot = {
     loader = {
       efi = {
-        # canTouchEfiVariables = true;
-        # efiSysMountPoint = "/boot/efi";
+        canTouchEfiVariables = true;
       };
       grub = {
         enable = true;
-        version = 2;
-        efiSupport = true;
-        # efiInstallAsRemovable = true;
-        # device = "/dev/nvme0n1";
+        configurationLimit = 15;
         device = "nodev";
+        # efiInstallAsRemovable = true;
+        efiSupport = true;
         useOSProber = true;
+        version = 2;
       };
-      systemd-boot.enable = true;
+      systemd-boot = {
+        enable = true;
+        memtest86.enable = true;
+      };
     };
 
     # Kernel modules:
+    blacklistedKernelModules = ["alx"];
     # hide hdmi audio device
     # disable usb suspend so devices work after waking
     extraModprobeConfig = ''
@@ -60,14 +61,13 @@
     };
   };
 
-  # Select internationalisation properties.
-  i18n = {
-    consoleFont = "Lat2-Terminus16";
-    consoleKeyMap = "us";
-    defaultLocale = "en_US.UTF-8";
+  console = {
+    # font = "Lat2-Terminus16";
+    keyMap = "us";
   };
 
-  # Set your time zone.
+  i18n.defaultLocale = "en_US.UTF-8";
+
   time.timeZone = "America/Chicago";
 
   environment.systemPackages = with pkgs;
@@ -104,9 +104,8 @@
       x = [
         feh
         firefox
-        rxvt_unicode_with-plugins
+        rxvt_unicode-with-plugins
         xclip
-        xidlehook
         xorg.xmessage
         xsel
         vimHugeX
@@ -153,7 +152,7 @@
       host.enable = true;
       # enable extension pack to share usb ports, etc.
       # (requires building virtualbox)
-      host.enableExtensionPack = false;
+      # host.enableExtensionPack = true;
       host.addNetworkInterface = true;
     };
   };

@@ -15,13 +15,17 @@ with pkgs;
     };
     config = {
       "colors" = {
-        background     = "#2c3e50";
-        background-alt = "#235";
-        foreground     = "#ecf0f1";
-        foreground-alt = "#eff";
+        background     = "#282828";
+        background-alt = "#1d2021";
+        foreground     = "#ebdbb2";
+        foreground-alt = "#a89984";
+
+        primary        = "#fe8019";
+        secondary      = "#b16286";
+        alert          = "#fb4934";
 
         fg        = "#f9f7dd";
-        bg        = "#cc2f2f2f";
+        bg        = "#cc282828";
         lightGray = "#888888";
         darkGray  = "#474747";
         red       = "#ff5a5f";
@@ -43,10 +47,10 @@ with pkgs;
         fixed-center = true;
 
         background = "\${colors.bg}";
-        foreground = "\${colors.fg}";
+        foreground = "\${colors.foreground}";
 
         line-size  = 3;
-        line-color = "\${colors.red}";
+        line-color = "\${colors.primary}";
 
         border-size  = 0;
         border-color = "#00000000";
@@ -63,9 +67,10 @@ with pkgs;
         font-3 = "Font Awesome 5 Free:style=Solid:pixelsize=10;1";
         font-4 = "Font Awesome 5 Brands:pixelsize=10;1";
         font-5 = "Noto Sans Symbols2:size=13;2";
+        font-6 = "Noto Color Emoji:style=Regular:scale=12:antialias=false:size=1;2";
 
         tray-position = "right";
-        tray-padding  = 2;
+        tray-padding  = 4;
         tray-detached = false;
         tray-scale    = "1.0";
 
@@ -284,6 +289,12 @@ with pkgs;
         icon-next = "⏭";
         toggle-on-foreground = "#ff";
         toggle-off-foreground = "#55";
+      };
+
+      "module/powermenu" = {
+        type = "custom/text";
+        content = "⏻ ";
+        click-left = "rofi-power";
       };
 
       "settings" = {
