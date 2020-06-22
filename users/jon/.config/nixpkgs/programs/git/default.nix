@@ -62,10 +62,10 @@
         editor = "nvim";
       };
 
-      diff.tool                   = "vimdiff";
-      merge.tool                  = "vimdiff";
+      diff.tool                   = "nvim";
+      merge.tool                  = "nvim";
       merge.conflictstyle         = "diff3";
-      "mergetool \"vimdiff\"".cmd = "nvim -d $LOCAL $REMOTE $MERGED";
+      "mergetool \"nvim\"".cmd =  ''nvim -f -c "Gdiffsplit!" "$MERGED"'';
 
       credential.helper = "${pkgs.gitAndTools.pass-git-helper}/bin/pass-git-helper";
       github.user       = "emptyflask";

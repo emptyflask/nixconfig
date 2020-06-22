@@ -15,6 +15,8 @@ let
 in
 
 {
+  security.pam.services.lightdm.enableGnomeKeyring = true;
+
   # security.polkit.enable = true;
 
   security.sudo.extraRules = lib.mkAfter [

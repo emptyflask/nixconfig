@@ -1,11 +1,16 @@
 {pkgs, ...}:
 
 {
+  nix.trustedUsers = [ "root" "jon" ];
+
+  environment.homeBinInPath = true;
+
   users = {
     users.root.initialHashedPassword = "";
 
     users.jon = {
       description = "Jon Roberts";
+      initialPassword = "changeme";
       isNormalUser = true;
       uid = 1000;
       extraGroups = [

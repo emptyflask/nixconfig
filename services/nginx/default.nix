@@ -38,5 +38,6 @@
       "coupons.sxsw.localhost"       = proxy 5008 // {  };
       "nearby.sxsw.localhost"        = proxy 5009 // {  };
       "image-manager.sxsw.localhost" = proxy 5010 // {  };
+      "logger.sxsw.localhost"        = proxy 5011 // {  };
     };
 }

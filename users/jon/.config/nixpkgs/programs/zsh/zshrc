@@ -1,14 +1,3 @@
-source <(antibody init)
-echo "
-  yardnsm/blox-zsh-theme
-  chrissicool/zsh-256color
-  chisui/zsh-nix-shell
-  trapd00r/LS_COLORS
-  zsh-users/zsh-completions
-  zsh-users/zsh-history-substring-search
-  zdharma/fast-syntax-highlighting
-" | antibody bundle
-
 setopt extendedglob
 unsetopt correct
 
@@ -31,23 +20,6 @@ bindkey '^[[6~' history-beginning-search-forward    # PAGE DOWN
 
 rgrep() { grep -iR $1 *; }
 f() { find ./ | grep $1; }
-
-# ssh autocompletion should use ssh config
-# h=()
-# if [[ -r ~/.ssh/config ]]; then
-#   h=($h ${${${(@M)${(f)"$(cat ~/.ssh/config)"}:#Host *}#Host }:#*[*?]*})
-# fi
-# if [[ -r ~/.ssh/known_hosts ]]; then
-#   h=($h ${${${(f)"$(cat ~/.ssh/known_hosts{,2} || true)"}%%\ *}%%,*}) 2>/dev/null
-# fi
-# if [[ $#h -gt 0 ]]; then
-#   zstyle ':completion:*:hosts' hosts $h
-# fi
-
-# Autorun TMUX
-# if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
-#   exec tmux
-# fi
 
 # NixOS command-not-found support
 if [ -x /run/current-system/sw/bin/command-not-found ]; then

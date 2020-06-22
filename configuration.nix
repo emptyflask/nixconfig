@@ -17,33 +17,44 @@
 
   nixpkgs.config.allowUnfree = true;
 
-  # Use the GRUB 2 boot loader.
+  fileSystems."/home" = {
+    device = "/dev/disk/by-uuid/6fc9222a-632d-4dbd-918b-67d79056e3af";
+    fsType = "ext4";
+  };
+
+  fileSystems."/media/repository" = {
+    device = "/dev/disk/by-uuid/8CFA8C6CFA8C547C";
+    fsType = "ntfs";
+    options = ["defaults" "user"];
+  };
+
+  fileSystems."/media/work" = {
+    device = "/dev/disk/by-uuid/0a11a6e6-d40f-44dc-9f7f-4ab9109e66b7";
+    fsType = "ext4";
+  };
+
   boot = {
     loader = {
-      efi = {
-        canTouchEfiVariables = true;
-      };
-      grub = {
-        enable = true;
-        configurationLimit = 15;
-        device = "nodev";
-        # efiInstallAsRemovable = true;
-        efiSupport = true;
-        useOSProber = true;
-        version = 2;
-      };
+      efi.canTouchEfiVariables = true;
+      # grub = {
+      #   enable = true;
+      #   device = "nodev";
+      #   efiSupport = true;
+      #   useOSProber = true;
+      #   version = 2;
+      # };
       systemd-boot = {
         enable = true;
+        consoleMode = "max";
         memtest86.enable = true;
       };
     };
 
     # Kernel modules:
+    # don't load module for secondary ethernet adapter
     blacklistedKernelModules = ["alx"];
-    # hide hdmi audio device
     # disable usb suspend so devices work after waking
     extraModprobeConfig = ''
-      options snd_hda_intel enable=1,0
       options usbcore       autosuspend=-1
     '';
   };
@@ -51,7 +62,10 @@
   networking = {
     hostName = "nixos"; # Define your hostname.
     # wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-    networkmanager.enable = true;
+    networkmanager = {
+      enable = true;
+      enableStrongSwan = true;
+    };
 
     firewall = {
       enable = true;
@@ -62,7 +76,7 @@
   };
 
   console = {
-    # font = "Lat2-Terminus16";
+    font = "Lat2-Terminus16";
     keyMap = "us";
   };
 
@@ -83,6 +97,7 @@
         gnupg
         gotop
         htop
+        hwinfo
         lsof
         neovim
         nmap
@@ -132,15 +147,24 @@
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
+
   programs.gnupg.agent = { enable = true; enableSSHSupport = true; };
+  programs.seahorse.enable = true;
 
-  # Enable sound.
+  hardware = {
+    bluetooth.enable = true;
+
+    # nvidia.prime.intelBusId = "PCI:1:0:1";
+    # nvidia.modesetting.enable = true;
+
+    pulseaudio.enable = true;
+    pulseaudio.support32Bit = true;
+
+    opengl.enable = true;
+    opengl.driSupport32Bit = true;
+  };
+
   sound.enable = true;
-  hardware.pulseaudio.enable = true;
-  hardware.pulseaudio.support32Bit = true;
-
-  hardware.opengl.enable = true;
-  hardware.opengl.driSupport32Bit = true;
 
   virtualisation = {
     docker = {

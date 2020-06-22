@@ -2,6 +2,8 @@
 
 let
   unstable = import <nixos-unstable> { config = { allowUnfree = true; }; };
+  all-hies = import (builtins.fetchTarball "https://github.com/infinisil/all-hies/tarball/master") {};
+  ghcide-nix = import (builtins.fetchTarball "https://github.com/cachix/ghcide-nix/tarball/master") {};
 
   myLocation = "home";
   locations = {
@@ -29,110 +31,109 @@ in {
   # };
 
   home.packages = with pkgs; [
-    # unstable.lutris
-    unstable.discord
+    unstable.cachix
     unstable.postman
     unstable.steam
     unstable.steam-run
+    unstable.unityhub
 
-    antibody
-    bat
-    blender
+    ghcide-nix.ghcide-ghc865
+
+    bat                 # cat clone with syntax highlighting and git integration
     bmon                # network monitor
-    calibre             # e-book library
-    dmenu
+    dmenu               # minimal desktop menu
     dropbox
-    evince              # another PDF viewer
-    exercism
     fasd
-    fd
-    flameshot           # screenshots (PrtSc)
+    fd                  # find entries in filesystem
     fortune
-    gimp
-    ghc
-    gnumake
     google-chrome
-    haskellPackages.ghcid
-    # haskellPackages.greenclip  # a different clipboard manager
-    haskellPackages.hlint
-    # haskellPackages.intero
     htop
     jq
     kitty               # terminal
     lxmenu-data         # installed apps
-    mosh
-    mplayer
-    mpv
-    ncmpcpp
-    neomutt             # CLI mail
     nix-zsh-completions
-    nodejs
+    mosh                # ssh alternative
     pavucontrol
     pcmanfm             # GUI file manager
     qalculate-gtk       # calculator
     ranger              # CLI file manager
     ripgrep
-    ruby
-    rubyPackages_2_6.pry
-    scribusUnstable     # page layout
-    scrot               # CLI screenshotter
     shared_mime_info    # recognize file types
-    signal-desktop
-    slack
-    spotify
-    thunderbird
-    tig
     tmux
     units
-    universal-ctags
-    vlc
-    weechat
-    yarn
     yubioath-desktop
     zeal                # docs (like dash)
+
+    # graphics / print
+    blender
+    flameshot           # screenshots (PrtSc)
+    gimp
+    scribusUnstable     # page layout
+    scrot               # CLI screenshotter
+
+    # programming - general
+    aws-sam-cli         # AWS serverless app model
+    exercism
+    gnumake
+    ltrace              # lib trace
+    sourceHighlight
+    strace              # system call trace
+    tig                 # git tui frontend
+    universal-ctags
+
+    # programming - javascript
+    nodejs
+    yarn
+
+    # programming - haskell
+    ghc
+    haskellPackages.apply-refact
+    haskellPackages.ghcid
+    haskellPackages.hindent
+    haskellPackages.hlint
+    unstable.haskellPackages.stylish-haskell
+
+    # programming - python
+    python3Packages.pynvim # for neovim
+
+    # programming - ruby
+    ruby
+    rubyPackages_2_6.pry
+
+    # chat / email
+    # unstable.discord
+    neomutt             # CLI mail
+    protonmail-bridge
+    signal-desktop
+    slack
+    thunderbird
+    weechat
+    unstable.zoom-us
+
+    # fonts (format with !column -t)
+    aileron            comfortaa              dejavu_fonts             dina-font
+    eunomia            f5_6                   fantasque-sans-mono      ferrum
+    fira               fira-code              fira-code-symbols        fira-mono
+    font-awesome       helvetica-neue-lt-std  hermit                   ibm-plex
+    inconsolata        iosevka                league-of-moveable-type  liberation_ttf
+    libre-baskerville  libre-bodoni           libre-caslon             libre-franklin
+    medio              mplus-outline-fonts    national-park-typeface   norwester-font
+    penna              proggyfonts            route159                 seshat
+    siji               tenderness             vegur                    vistafonts
 
     # formatters
     unstable.nixfmt
     unstable.ormolu
     unstable.uncrustify
 
-    # fonts
-    aileron
-    comfortaa
-    dejavu_fonts
-    dina-font
-    eunomia
-    f5_6
-    fantasque-sans-mono
-    ferrum
-    fira
-    fira-code
-    fira-code-symbols
-    fira-mono
-    font-awesome
-    helvetica-neue-lt-std
-    hermit
-    ibm-plex
-    inconsolata
-    iosevka
-    league-of-moveable-type
-    liberation_ttf
-    libre-baskerville
-    libre-bodoni
-    libre-caslon
-    libre-franklin
-    medio
-    mplus-outline-fonts
-    national-park-typeface
-    norwester-font
-    penna
-    proggyfonts
-    route159
-    seshat
-    siji
-    tenderness
-    vegur
-    vistafonts
+    # media
+    calibre             # e-book library
+    evince              # another PDF viewer
+    mplayer
+    mpv
+    ncmpcpp
+    spotify
+    vlc
   ];
 
   home.keyboard = {
@@ -153,21 +154,19 @@ in {
       package = pkgs.noto-fonts;
     };
     theme = {
-      name = "Arc-Dark";
-      package = pkgs.arc-theme;
+      name = "Adwaita-dark";
+      package = pkgs.gnome3.gnome-themes-standard;
     };
   };
 
   programs = {
-    # Let Home Manager install and manage itself.
     home-manager.enable = true;
 
-    direnv.enable = true;
-
-    firefox = {
-      enable = true;
-    };
-
+    direnv.enable       = true;
+    emacs.enable        = true;
+    firefox.enable      = true;
+    fzf.enable          = true;
+    keychain.enable     = true;
   };
 
   services = {
@@ -231,6 +230,8 @@ in {
 
       ${pkgs.networkmanagerapplet}/bin/nm-applet &
 
+      ${pkgs.alsaUtils}/bin/amixer -c0 set Headphone 100%,100%
+
       ${pkgs.xidlehook}/bin/xidlehook \
         --not-when-fullscreen \
         --not-when-audio \
@@ -242,10 +243,7 @@ in {
       enable = true;
       enableContribAndExtras = true;
       extraPackages = haskellPackages: [
-        haskellPackages.xmobar
-        haskellPackages.xmonad
-        haskellPackages.xmonad-contrib
-        haskellPackages.xmonad-extras
+        # haskellPackages.xmobar
       ];
     };
 
@@ -257,8 +255,27 @@ in {
     };
   };
 
+  home.file.".ghci".text = ''
+    :seti -XGADTSyntax
+    :seti -XGeneralizedNewtypeDeriving
+    :seti -XInstanceSigs
+    :seti -XLambdaCase
+    :seti -XPartialTypeSignatures
+    :seti -XScopedTypeVariables
+    :seti -XTypeApplications
+    :seti -XOverloadedStrings
+    :set prompt "\ESC[1;34m%s\n\ESC[0;34mλ> \ESC[m"
+    :set prompt-cont " \ESC[0;34m| \ESC[m"
+    :set +t
+  '';
+
+  home.file.".railsrc".text = ''
+    --skip-spring
+  '';
+
   imports = [
     ./accounts
+    ./environment.nix
     ./services/dunst
     ./services/polybar
     ./services/spotifyd

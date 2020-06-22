@@ -1,8 +1,19 @@
 { config, lib, pkgs, ... }:
+
 {
+  # programs.mbsync.enable = true;
+  programs.offlineimap.enable = true;
+  # programs.msmtp.enable = true;
+  # programs.notmuch = {
+  #   enable = true;
+  #   hooks = {
+  #     preNew = "mbsync --all";
+  #   };
+  # };
+
   accounts.email.accounts = {
 
-    "emptyflask" = {
+    emptyflask = {
       primary = true;
       address = "jon@emptyflask.net";
       realName = "Jon Roberts";
@@ -18,6 +29,7 @@
         "throwaway@emptyflask.net"
       ];
       flavor = "gmail.com";
+      userName = "jon@emptyflask.net";
       passwordCommand = "${pkgs.pass}/bin/pass jon@emptyflask.net";
       neomutt = {
         enable = true;
@@ -35,7 +47,7 @@
       offlineimap.enable = true;
     };
 
-    "sxsw" = {
+    sxsw = {
       primary = false;
       address = "jon@sxsw.com";
       realName = "Jon Roberts";
@@ -49,12 +61,17 @@
         '';
       };
       flavor = "gmail.com";
+      userName = "jon@sxsw.com";
       passwordCommand = "${pkgs.pass}/bin/pass jon@sxsw.com";
       neomutt = {
         enable = true;
         extraConfig = ''
           color status green default
         '';
+      };
+      mbsync = {
+        enable = true;
+        create = "maildir";
       };
       notmuch.enable = true;
       offlineimap.enable = true;

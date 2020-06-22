@@ -1,16 +1,23 @@
 {pkgs, ...}:
 
+let
+  lscolors = builtins.fetchGit {
+    url = "https://github.com/trapd00r/LS_COLORS.git";
+    ref = "master";
+  };
+
+in
 {
   programs.zsh = {
     enable = true;
     enableAutosuggestions = true;
+    enableCompletion = true;
     defaultKeymap = "viins";
     history.extended = true;
+
     initExtra = (builtins.readFile ./zshrc) + ''
-      eval "$(${pkgs.direnv}/bin/direnv hook zsh)"
       eval "$(${pkgs.fasd}/bin/fasd --init auto)"
-      eval $(${pkgs.coreutils}/bin/dircolors -b $HOME/.cache/antibody/https-COLON--SLASH--SLASH-github.com-SLASH-trapd00r-SLASH-LS_COLORS/LS_COLORS)
-      source "$(${pkgs.fzf}/bin/fzf-share)/key-bindings.zsh"
+      eval $(${pkgs.coreutils}/bin/dircolors -b ${lscolors}/LS_COLORS)
     '';
 
     shellAliases = {
@@ -18,49 +25,39 @@
       ll = "ls -l";
       l  = "ls -alh";
 
-      duh="du -csh";
-      tailf="tail -f";
+      duh   = "du -csh";
+      tailf = "tail -f";
 
-      ag=''ag --color-line-number=1\;30 --color-path=1\;32 --color-match=0\;31'';
-      grep="grep --color=auto";
+      ag   = ''ag --color-line-number=1\;30 --color-path=1\;32 --color-match=0\;31'';
+      grep = "grep --color=auto";
 
-      bi="bundle install";
-      bu="bundle update";
-      be="bundle exec";
-      trs="touch tmp/restart.txt";
+      bi  = "bundle install";
+      bu  = "bundle update";
+      be  = "bundle exec";
+      trs = "touch tmp/restart.txt";
 
-      crush="pngcrush -d crushed -rem gAMA -rem cHRM -rem iCCP -rem sRGB";
-      utf8=''find . -type f | xargs -I {} bash -c "iconv -f utf-8 -t utf-16 {} &>/dev/null || echo {}"'';
+      # pngcrush with default settings
+      crush = "pngcrush -d crushed -rem gAMA -rem cHRM -rem iCCP -rem sRGB";
 
-      curl_json=''curl -v -H "Content-Type: application/json"'';
-      curl_json_post=''curl -v -H "Content-Type: application/json" -X POST'';
-      curl_json_put=''curl -v -H "Content-Type: application/json" -X PUT'';
-      curl_json_delete=''curl -v -H "Content-Type: application/json" -X DELETE'';
-      json="jq '.' -C | more -R";
+      curl_json = ''curl -v -H "Content-Type: application/json"'';
 
-      m="ncmpcpp";
+      json = "jq '.' -C | more -R";
 
-      # ghc="stack ghc -- -Wall";
-      # ghci="stack ghci";
-      # runhaskell="stack runhaskell -- -Wall";
+      m = "ncmpcpp";
 
-      nixgc="nix-collect-garbage -d";
-      nixq="nix-env -qaP";
-      nixupgrade=''nix-channel --update && nix-env -u \"*\"'';
-      nixup="nix-env -u";
-      nixrm="nix-env -q | fzf | xargs -I{} nix-env -e {}";
+      nixgc      = "nix-collect-garbage -d";
+      nixq       = "nix-env -qaP";
+      nixupgrade = ''nix-channel --update && nix-env -u \"*\"'';
+      nixup      = "nix-env -u";
+      nixrm      = "nix-env -q | fzf | xargs -I{} nix-env -e {}";
 
-      j="jira ls -a emptyflask";
+      j = "jira ls -a emptyflask";
 
-      open="xdg-open";
+      # may break on MacOS
+      open = "xdg-open";
     };
 
     sessionVariables = {
-      ACK_COLOR_MATCH="red";
-      _JAVA_AWT_WM_NONREPARENTING=1;
-      EDITOR = "nvim";
-      WORDCHARS="*?[]~&;!$%^<>";
-
       FZF_DEFAULT_COMMAND="${pkgs.ripgrep}/bin/rg --files";
 
       FZF_DEFAULT_OPTS=''
@@ -77,6 +74,52 @@
           (bat --style=numbers --color=always {} ||
           cat {}) 2> /dev/null | head -100'
       '';
+
+      WORDCHARS="*?[]~&;!$%^<>";
     };
+
+    plugins = [
+      {
+        name = "blox";
+        src = builtins.fetchGit {
+          url = "https://github.com/yardnsm/blox-zsh-theme.git";
+          ref = "master";
+        };
+      }
+
+      {
+        name = "fast-syntax-highlighting";
+        src = builtins.fetchGit {
+          url = "https://github.com/zdharma/fast-syntax-highlighting.git";
+          ref = "refs/tags/v1.55";
+        };
+      }
+
+      {
+        name = "zsh-256color";
+        src = builtins.fetchGit {
+          url = "https://github.com/chrissicool/zsh-256color.git";
+          ref = "master";
+        };
+      }
+
+      {
+        name = "zsh-completions";
+        src = builtins.fetchGit {
+          url = "https://github.com/zsh-users/zsh-completions.git";
+          ref = "master";
+        };
+      }
+
+      {
+        name = "zsh-nix-shell";
+        src = builtins.fetchGit {
+          url = "https://github.com/chisui/zsh-nix-shell.git";
+          ref = "master";
+        };
+      }
+
+    ];
+
   };
 }

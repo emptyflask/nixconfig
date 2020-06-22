@@ -32,8 +32,7 @@ with pkgs;
       fzfWrapper
       ghc-mod-vim
       gitgutter
-      gruvbox
-      haskell-vim
+      gruvbox-community
       hlint-refactor
       lightline-vim
       neco-ghc
@@ -51,8 +50,7 @@ with pkgs;
       vim-grepper
       vim-gutentags
       vim-hindent
-      vim-nix
-      # vim-polyglot
+      vim-polyglot
       vim-snippets
       vim-speeddating
       vim-startify

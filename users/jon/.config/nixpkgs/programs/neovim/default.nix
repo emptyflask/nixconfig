@@ -1,15 +1,15 @@
-{ pkgs, ...}:
-
-let
-  unstable = import <nixos-unstable> {};
-in
+{pkgs, ...}:
+# let
+#   pkgs = import <nixos-unstable> {};
+# in
 
 with pkgs;
 
 {
+
   programs.neovim = {
     enable    = true;
-    package   = unstable.neovim-unwrapped;
+    package   = neovim-unwrapped;
 
     viAlias   = true;
     vimAlias  = false;
@@ -26,14 +26,20 @@ with pkgs;
       ./status.vim
       ./theme.vim
       ./tmux.vim
-    ]);
+    ]) + ''
+      let g:coc_data_home = "~/.config/coc"
+      let g:gitgutter_git_executable = "${git}/bin/git"
+    '';
 
-    plugins = with unstable.vimPlugins; [
+    plugins = with vimPlugins; [
       Hoogle
       Rename
       Tabular
       Tagbar
+      coc-json
       coc-nvim
+      coc-solargraph
+      coc-tslint
       elm-vim
       fastfold
       fugitive
@@ -42,28 +48,26 @@ with pkgs;
       ghc-mod-vim
       gitgutter
       gruvbox-community
-      haskell-vim
-      hlint-refactor
-      intero-neovim
+      # hlint-refactor
+      # intero-neovim
       lightline-vim
-      neco-ghc
+      # neco-ghc
       neoformat
       repeat
       sensible
       tlib
       undotree
+      vim-abolish
       vim-commentary
       vim-dispatch
-      vim-elixir
-      vim-go
       vim-grepper
       vim-gutentags
-      vim-nix
-      vim-polyglot
+      vim-polyglot  # syntax highlighting for most languages
       vim-sandwich
       vim-snippets
       vim-speeddating
       vim-startify
+      vim-stylish-haskell
       vim-test
       vim-tmux-navigator
       vim-unimpaired

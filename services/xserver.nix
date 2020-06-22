@@ -10,9 +10,20 @@
   videoDrivers = [ "nvidia" ];
 
   displayManager = {
-    defaultSession = "xterm";
-    sddm.enable = true;
+    defaultSession = "none+xmonad";
+    lightdm.greeters.gtk = {
+      enable = true;
+      # user = "jon";
+      # extraConfig = ''
+      #   [greeter]
+      #   show-password-label = false
+      #   [greeter-theme]
+      #   background-image = ""
+      # '';
+    };
   };
+
+  windowManager.xmonad.enable = true;
 
   screenSection = ''
     Option "metamodes" "nvidia-auto-select +0+0 { ForceFullCompositionPipeline = On }"

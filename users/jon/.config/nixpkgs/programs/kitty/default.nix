@@ -4,6 +4,11 @@
   programs.kitty = {
     enable = true;
 
+    keybindings = {
+      "ctrl+shift+n" = "new_os_window_with_cwd";
+      "ctrl+shift+t" = "new_tab_with_cwd !neighbor";
+    };
+
     settings = {
       font_family        = "Fira Code Regular";
       bold_font          = "Fira Code Bold";
