@@ -59,6 +59,7 @@ in {
     ranger              # CLI file manager
     ripgrep
     shared_mime_info    # recognize file types
+    st
     tmux
     units
     yubioath-desktop
@@ -284,6 +285,7 @@ in {
     ./programs/neomutt
     ./programs/neovim
     ./programs/rofi
+    ./programs/st
     ./programs/tmux
     ./programs/vim
     ./programs/zathura
