@@ -76,11 +76,16 @@
       extraRules = ''
         # Generic stm32 (for flashing Preonic keyboard)
         SUBSYSTEMS=="usb", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="df11", MODE:="0666"
+
+        # Teensy 2.0 / atmega32u4 (LFKpad)
+        SUBSYSTEMS=="usb", ATTRS{idVendor}=="feed", ATTRS{idProduct}=="6060", MODE:="0666"
+        SUBSYSTEMS=="usb", ATTRS{idVendor}=="16c0", ATTRS{idProduct}=="0478", MODE:="0666"
       '';
     };
 
     udisks2.enable = true;
 
+    borgbackup = import ./borgbackup.nix;
     nginx      = import ./nginx;
     openvpn    = import ./openvpn;
     postgresql = import ./postgresql pkgs;

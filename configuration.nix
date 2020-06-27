@@ -17,20 +17,10 @@
 
   nixpkgs.config.allowUnfree = true;
 
-  fileSystems."/home" = {
-    device = "/dev/disk/by-uuid/6fc9222a-632d-4dbd-918b-67d79056e3af";
-    fsType = "ext4";
-  };
-
   fileSystems."/media/repository" = {
     device = "/dev/disk/by-uuid/8CFA8C6CFA8C547C";
     fsType = "ntfs";
     options = ["defaults" "user"];
-  };
-
-  fileSystems."/media/work" = {
-    device = "/dev/disk/by-uuid/0a11a6e6-d40f-44dc-9f7f-4ab9109e66b7";
-    fsType = "ext4";
   };
 
   boot = {
