@@ -1,14 +1,16 @@
 let
   backup = path: {
-    paths = path;
-    repo = "/media/backup/${baseNameOf path}";
-    doInit = false; # flip for new backup jobs
+    paths           = path;
+    repo            = "/media/backup/${baseNameOf path}";
+    removableDevice = true;
+    compression     = "auto,lzma";
+    startAt         = "weekly";
+    doInit          = false; # flip for new backup jobs
+
     encryption = {
-      mode = "repokey-blake2";
+      mode        = "repokey-blake2";
       passCommand = "cat /root/backup-password";
     };
-    compression = "auto,lzma";
-    startAt = "weekly";
   };
 in
   {

@@ -23,20 +23,14 @@
       fsType = "ext4";
     };
 
-  fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/16EB-79D4";
-      fsType = "vfat";
-    };
-
   fileSystems."/media/work" =
     { device = "/dev/disk/by-uuid/0a11a6e6-d40f-44dc-9f7f-4ab9109e66b7";
       fsType = "ext4";
     };
 
-  fileSystems."/media/backup" =
-    { device = "/dev/disk/by-uuid/82d748cc-d038-405c-9d5d-82d381a0999e";
-      fsType = "ext4";
-      options = ["defaults" "user"];
+  fileSystems."/boot" =
+    { device = "/dev/disk/by-uuid/16EB-79D4";
+      fsType = "vfat";
     };
 
   swapDevices =

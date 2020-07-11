@@ -3,8 +3,8 @@
 {
   services = {
     accounts-daemon.enable = true;
-    acpid.enable           = true;
-    apcupsd.enable         = true;
+    acpid.enable           = true; # Advanced Configuration and Power Interface
+    apcupsd.enable         = true; # UPS daemon
     clipmenu.enable        = true;
 
     dbus.packages = with pkgs; [ gnome3.dconf ];
@@ -25,6 +25,7 @@
 
     emacs.enable                = false;
     gnome3.gnome-keyring.enable = true;
+    gvfs.enable                 = true; # automount
     kbfs.enable                 = true; # $HOME/keybase
     keybase.enable              = true;
 
@@ -54,7 +55,7 @@
       musicDirectory = "/media/repository/music";
     };
 
-    ntp.enable = true;
+    ntp.enable = true; # Time sync
 
     openssh = {
       enable = true;
@@ -62,11 +63,11 @@
       permitRootLogin = "no";
     };
 
-    pcscd.enable    = true;
+    pcscd.enable    = true; # Smartcard reader
     printing.enable = true;
     redis.enable    = true;
-    sabnzbd.enable  = true;
-    samba.enable    = true;
+    sabnzbd.enable  = true; # Usenet downloader
+    samba.enable    = true; # Windows file sharing
 
     udev = {
       packages = [
@@ -74,6 +75,8 @@
         pkgs.yubikey-personalization
       ];
       extraRules = ''
+        SUBSYSTEM=="block", ENV{UDISKS_FILESYSTEM_SHARED}="1"
+
         # Generic stm32 (for flashing Preonic keyboard)
         SUBSYSTEMS=="usb", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="df11", MODE:="0666"
 
@@ -83,7 +86,7 @@
       '';
     };
 
-    udisks2.enable = true;
+    # udisks2.enable = true;
 
     borgbackup = import ./borgbackup.nix;
     nginx      = import ./nginx;

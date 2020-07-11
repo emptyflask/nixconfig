@@ -32,7 +32,7 @@ in {
 
   home.packages = with pkgs; [
     unstable.cachix
-    unstable.postman
+    # unstable.postman
     unstable.steam
     unstable.steam-run
     unstable.unityhub
@@ -48,6 +48,7 @@ in {
     fortune
     google-chrome
     htop
+    jmtpfs              # Media Transfer Protocol (usb device filesystems)
     jq
     kitty               # terminal
     lxmenu-data         # installed apps
@@ -74,6 +75,7 @@ in {
 
     # programming - general
     aws-sam-cli         # AWS serverless app model
+    docker-compose
     exercism
     gnumake
     ltrace              # lib trace
@@ -285,7 +287,7 @@ in {
     ./programs/neomutt
     ./programs/neovim
     ./programs/rofi
-    ./programs/st
+    # ./programs/st
     ./programs/tmux
     ./programs/vim
     ./programs/zathura

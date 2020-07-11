@@ -23,6 +23,12 @@
     options = ["defaults" "user"];
   };
 
+  fileSystems."/media/backup" =
+    { device = "/dev/disk/by-uuid/82d748cc-d038-405c-9d5d-82d381a0999e";
+    fsType = "ext4";
+    options = ["defaults" "nofail" "user"];
+  };
+
   boot = {
     loader = {
       efi.canTouchEfiVariables = true;
@@ -99,6 +105,7 @@
         tree
         unrar
         unzip
+        usbutils
         w3m
         wget
         zip
@@ -117,9 +124,6 @@
       ];
 
   in common ++ (if config.services.xserver.enable then x else nox);
-
-  # For USB mounting support (https://nixos.wiki/wiki/PCManFM)
-  environment.variables.GIO_EXTRA_MODULES = [ "${pkgs.gvfs}/lib/gio/modules" ];
 
   fonts.fonts = with pkgs; [
     corefonts
