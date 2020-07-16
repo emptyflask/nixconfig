@@ -35,7 +35,7 @@ in {
     # unstable.postman
     unstable.steam
     unstable.steam-run
-    unstable.unityhub
+    # unstable.unityhub
 
     ghcide-nix.ghcide-ghc865
 
@@ -59,9 +59,11 @@ in {
     qalculate-gtk       # calculator
     ranger              # CLI file manager
     ripgrep
+    scowl               # spellchecker / dictionary
     shared_mime_info    # recognize file types
     st
     tmux
+    translate-shell
     units
     yubioath-desktop
     zeal                # docs (like dash)

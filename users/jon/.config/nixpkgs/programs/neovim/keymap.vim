@@ -5,6 +5,7 @@ nmap <tab> i<tab>
 nmap <Enter> o<ESC>
 nmap <S-Enter> O<ESC>
 
+" FZF ------------------------------------
 " Search
 map <leader>a :Rg<cr>
 
@@ -18,23 +19,17 @@ map <leader>gf :Files %%<cr>
 " Open a buffer
 map <leader>b :Buffers<cr>
 
+" Search all buffers
+map <leader>/ :Lines<cr>
+
+" Word completion
+inoremap <expr> <c-x><c-k> fzf#vim#complete('cat ' . g:dictionary)
+
+" ------------------------------------
+
 " Edit or view files in same directory as current file
 cnoremap %% <C-R>=expand('%:h').'/'<cr>
 map <leader>e :edit %%
-
-" Rails specific
-map <leader>gv :Files app/views<cr>
-map <leader>gc :Files app/controllers<cr>
-map <leader>gm :Files app/models<cr>
-map <leader>gh :Files app/helpers<cr>
-map <leader>gl :Files lib<cr>
-map <leader>gp :Files public<cr>
-map <leader>gj :Files app/assets/javascripts<cr>
-map <leader>gs :Files app/assets/stylesheets<cr>
-map <leader>ga :Files app/assets<cr>
-
-map <leader>gr :edit config/routes.rb<cr>
-map <leader>gg :edit Gemfile<cr>
 
 " Map kj to esc
 imap kj <esc>
@@ -45,7 +40,9 @@ nmap <c-n> :cnext<CR>
 
 " Turn off search highlighting
 map <silent> <leader><esc> :noh<return>
-map <silent> <leader>/ :noh<return>
+" This is actually ctrl-/
+map <silent> <c-_> :noh<return>
+" https://apple.stackexchange.com/questions/24261/how-do-i-send-c-that-is-control-slash-to-the-terminal
 
 " Very magic searching (requires less regex character escaping)
 nmap // /\v
@@ -87,34 +84,34 @@ map Y y$
 " replace word with clipboard contents 
 " nmap <leader>w "_cw0<ESC>
 
-" ,# Surround a word with #{ruby interpolation}
-map <leader># ysiw#
+" ,# Surround a word with #{ruby #{interpolation}}
+map <leader># ciw#{<C-R>"}<ESC>
 vmap <leader># c#{<C-R>"}<ESC>
 
 " ," Surround a word with "quotes"
-map <leader>" ysiw"
-vmap <leader>" c"<C-R>""<ESC>
+map <leader>" saiw"
+vmap <leader>" sa"
 
 " ,' Surround a word with 'single quotes'
-map <leader>' ysiw'
-vmap <leader>' c'<C-R>"'<ESC>
+map <leader>' saiw'
+vmap <leader>' sa'
 
 " ,) or ,( Surround a word with (parens)
 " The difference is in whether a space is put in
-map <leader>( ysiw(
-map <leader>) ysiw)
+map <leader>( saiw(
+map <leader>) saiw)
 vmap <leader>( c( <C-R>" )<ESC>
 vmap <leader>) c(<C-R>")<ESC>
 
 " ,[ Surround a word with [brackets]
-map <leader>] ysiw]
-map <leader>[ ysiw[
+map <leader>] saiw]
+map <leader>[ saiw[
 vmap <leader>[ c[ <C-R>" ]<ESC>
 vmap <leader>] c[<C-R>"]<ESC>
 
 " ,{ Surround a word with {braces}
-map <leader>} ysiw}
-map <leader>{ ysiw{
+map <leader>} saiw}
+map <leader>{ saiw{
 vmap <leader>} c{ <C-R>" }<ESC>
 vmap <leader>{ c{<C-R>"}<ESC>
 

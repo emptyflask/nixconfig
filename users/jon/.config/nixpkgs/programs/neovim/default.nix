@@ -6,7 +6,6 @@
 with pkgs;
 
 {
-
   programs.neovim = {
     enable    = true;
     package   = neovim-unwrapped;
@@ -29,6 +28,7 @@ with pkgs;
     ]) + ''
       let g:coc_data_home = "~/.config/coc"
       let g:gitgutter_git_executable = "${git}/bin/git"
+      let g:dictionary = "${scowl}/share/dict/words.txt"
     '';
 
     plugins = with vimPlugins; [
@@ -76,4 +76,7 @@ with pkgs;
     ];
 
   };
+
+  xdg.configFile."nvim/coc-settings.json".source = ./coc-settings.json;
+  xdg.configFile."nvim/ftplugin/ruby.vim".source = ./ftplugin/ruby.vim;
 }
