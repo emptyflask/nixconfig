@@ -46,9 +46,12 @@ in {
     fasd
     fd                  # find entries in filesystem
     fortune
+    gnome3.cheese       # webcam photos
     google-chrome
     htop
     jmtpfs              # Media Transfer Protocol (usb device filesystems)
+    joplin
+    joplin-desktop      # notes
     jq
     kitty               # terminal
     lxmenu-data         # installed apps
