@@ -24,11 +24,11 @@ in {
 
   nixpkgs.config.allowUnfree = true;
 
-  # nixpkgs.config.packageOverrides = self : rec {
-  #   blender = self.blender.override {
-  #     cudaSupport = true;
-  #   };
-  # };
+  nixpkgs.config.packageOverrides = self : rec {
+    blender = self.blender.override {
+      cudaSupport = true;
+    };
+  };
 
   home.packages = with pkgs; [
     unstable.cachix
@@ -58,7 +58,7 @@ in {
     nix-zsh-completions
     mosh                # ssh alternative
     pavucontrol
-    pcmanfm             # GUI file manager
+    pcmanfm-qt          # GUI file manager
     qalculate-gtk       # calculator
     ranger              # CLI file manager
     ripgrep
@@ -68,13 +68,14 @@ in {
     tmux
     translate-shell
     units
+    xarchiver
     yubioath-desktop
     zeal                # docs (like dash)
 
     # graphics / print
     blender
     flameshot           # screenshots (PrtSc)
-    gimp
+    unstable.gimp-with-plugins
     scribusUnstable     # page layout
     scrot               # CLI screenshotter
 
@@ -85,9 +86,11 @@ in {
     gnumake
     ltrace              # lib trace
     sourceHighlight
+    shellcheck          # shell script analyzer
     strace              # system call trace
     tig                 # git tui frontend
     universal-ctags
+    unstable.vscode
 
     # programming - javascript
     nodejs
