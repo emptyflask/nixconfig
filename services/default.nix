@@ -47,6 +47,9 @@
     };
 
     logind.extraConfig = ''
+      HandlePowerKey=suspend
+      IdleAction=suspend
+      IdleActionSec=60m
       RuntimeDirectorySize=2G
     '';
 
@@ -125,6 +128,7 @@
     };
 
     # udisks2.enable = true;
+    upower.enable = true;
 
     borgbackup = import ./borgbackup.nix;
     nginx      = import ./nginx;
