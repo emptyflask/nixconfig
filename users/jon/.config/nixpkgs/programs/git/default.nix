@@ -1,5 +1,6 @@
 { config, lib, pkgs, ... }:
 {
+  xdg.configFile."git/gitattributes".source = ./gitattributes;
   xdg.configFile."git/ignore".source = ./ignore;
 
   xdg.configFile."pass-git-helper/git-pass-mapping.ini".text = ''
@@ -60,6 +61,7 @@
 
       core = {
         editor = "nvim";
+        attributesFile = "~/.git/gitattributes";
       };
 
       diff.tool                   = "nvim";

@@ -16,6 +16,7 @@ in
     history.extended = true;
 
     initExtra = (builtins.readFile ./zshrc) + ''
+      source ${pkgs.nix-index}/etc/profile.d/command-not-found.sh
       eval "$(${pkgs.fasd}/bin/fasd --init auto)"
       eval $(${pkgs.coreutils}/bin/dircolors -b ${lscolors}/LS_COLORS)
     '';
@@ -41,7 +42,7 @@ in
 
       curl_json = ''curl -v -H "Content-Type: application/json"'';
 
-      json = "jq '.' -C | more -R";
+      json = "jq '.' -C | less";
 
       m = "ncmpcpp";
 

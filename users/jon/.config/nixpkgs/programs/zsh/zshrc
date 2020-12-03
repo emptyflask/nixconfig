@@ -20,10 +20,3 @@ bindkey '^[[6~' history-beginning-search-forward    # PAGE DOWN
 
 rgrep() { grep -iR $1 *; }
 f() { find ./ | grep $1; }
-
-# NixOS command-not-found support
-if [ -x /run/current-system/sw/bin/command-not-found ]; then
-    command_not_found_handler () {
-        /run/current-system/sw/bin/command-not-found $@
-    }
-fi

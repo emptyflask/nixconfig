@@ -72,6 +72,18 @@ with pkgs;
     "*.color248"            = "#bdae93";
     "*.color250"            = "#d5c4a1";
 
+    # simple terminal / suckless
+    "st.font"        = "Fira Code:style=Light:pixelsize=16:antialias=true";
+    "st.bold_font"   = "1";
+    "st.italic_font" = "1";
+    "st.alpha"       = "255";
+    "st.termname"    = "st-256color";
+    "st.shell"       = "/bin/sh";
+    "st.bellvolume"  = "0";
+    "st.tabspaces"   = "8";
+    "st.cwscale"     = "0.9";
+    "st.chscale"     = "1.0";
+
     # URxvt Fonts
     "URxvt.font"            = "xft:Fira Code:size=11,style=medium,antialias=true";
     "URxvt.boldFont"        = "xft:Fira Code:size=11,style=bold,antialias=true";

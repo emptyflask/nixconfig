@@ -86,9 +86,16 @@ with pkgs;
 
       "bar/desktop" = {
         "inherit"      = "commonbar";
-        modules-left   = "xmonad-workspaces xmonad-title";
+        modules-left   = "xmonad-workspaces xmonad-title ewmh";
         modules-center = "cpu memory swap";
         modules-right  = "mpd volume popup-calendar openvpn-status";
+      };
+
+      "module/ewmh" = {
+        type = "internal/xworkspaces";
+        pin-workspaces = true;
+        enable-click = true;
+        enable-scroll = false;
       };
 
       "module/xmonad" = {

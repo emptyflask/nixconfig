@@ -24,7 +24,6 @@ with pkgs;
       ./rename.vim
       ./status.vim
       ./theme.vim
-      ./tmux.vim
     ]) + ''
       let g:coc_data_home = "~/.config/coc"
       let g:gitgutter_git_executable = "${git}/bin/git"
@@ -48,7 +47,7 @@ with pkgs;
       ghc-mod-vim
       gitgutter
       gruvbox-community
-      # hlint-refactor
+      hlint-refactor
       # intero-neovim
       lightline-vim
       # neco-ghc

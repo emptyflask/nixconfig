@@ -1,10 +1,8 @@
 {
   "languageserver": {
     "haskell": {
-      "command": "ghcide",
-      "args": [
-        "--lsp"
-      ],
+      "command": "haskell-language-server-wrapper",
+      "args": ["--lsp"],
       "rootPatterns": [
         ".stack.yaml",
         ".hie-bios",
@@ -15,7 +13,8 @@
       "filetypes": [
         "hs",
         "lhs",
-        "haskell"
+        "haskell",
+        "lhaskell"
       ],
       "settings": {
         "hlintOn": true,

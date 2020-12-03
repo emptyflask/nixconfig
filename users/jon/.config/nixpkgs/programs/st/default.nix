@@ -1,5 +1,5 @@
 let
-  pkgs = import <nixos-unstable> {};
+  pkgs = import <nixos> {};
 in
 
 {
@@ -11,7 +11,11 @@ in
           harfbuzz # Ligature support for Fira Code
         ];
 
-        patches = [ ./st-custom-0.8.3.diff ];
+        patches = [
+          ./st-alpha-0.8.2.diff
+          # ./st-gruvbox-dark-0.8.2.diff
+          ./st-fira-code.diff
+        ];
       };
     })
   ];

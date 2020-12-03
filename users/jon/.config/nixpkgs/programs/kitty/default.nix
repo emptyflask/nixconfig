@@ -17,6 +17,7 @@
 
       background_opacity = "0.9";
       scrollback_lines   = 10000;
+      scrollback_pager   = ''nvim -c 'setlocal ft=man nonumber nolist showtabline=0 foldcolumn=0' -c "autocmd VimEnter * normal G" -'';
       enable_audio_bell  = false;
 
       pointer_shape_when_grabbed = "beam";
@@ -24,10 +25,9 @@
       tab_bar_style      = "powerline";
       tab_title_template = " {index}: {title} ";
 
-      # Base16 IR Black - kitty color config
-      # Timothée Poisot (http://timotheepoisot.fr)
-      background = "#000000";
-      foreground = "#b5b3aa";
+      # Gruvbox dark(er)
+      background = "#0d1011";
+      foreground = "#ebdbb2";
 
       url_color  = "#918f88";
       cursor     = "#b5b3aa";
@@ -42,24 +42,24 @@
       inactive_tab_foreground = "#75715e";
 
       # normal
-      color0  = "#000000";
-      color1  = "#ff6c60";
-      color2  = "#a8ff60";
-      color3  = "#ffffb6";
-      color4  = "#669bce";
-      color5  = "#ff73fd";
-      color6  = "#c6c5fe";
-      color7  = "#b5b3aa";
+      color0  = "#1d2021";
+      color1  = "#fb4934";
+      color2  = "#b8bb26";
+      color3  = "#fabd2f";
+      color4  = "#83a598";
+      color5  = "#d3869b";
+      color6  = "#8ec07c";
+      color7  = "#d5c4a1";
 
       # bright
-      color8  = "#6c6c66";
-      color9  = "#ff6c60";
-      color10 = "#a8ff60";
-      color11 = "#ffffb6";
-      color12 = "#96cbfe";
-      color13 = "#ff73fd";
-      color14 = "#c6c5fe";
-      color15 = "#b5b3aa";
+      color8  = "#665c54";
+      color9  = "#fe8019";
+      color10 = "#3c3836";
+      color11 = "#504945";
+      color12 = "#bdae93";
+      color13 = "#ebdbb2";
+      color14 = "#d65d0e";
+      color15 = "#fbf1c7";
 
       # extended base16 colors
       color16 = "#e9c062";

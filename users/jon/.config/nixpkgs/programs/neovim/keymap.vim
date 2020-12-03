@@ -148,6 +148,12 @@ map <Leader>= <C-w>=
 " Maximize viewport
 map <leader>\ <C-w><bar>
 
+" Manually resize a window
+noremap <silent> <M-Left> :vertical resize -4<CR>
+noremap <silent> <M-Right> :vertical resize +4<CR>
+noremap <silent> <M-Up> :resize +4<CR>
+noremap <silent> <M-Down> :resize -4<CR>
+
 map U :redo<CR>
 nmap <F2> :UndotreeToggle <CR>
 

@@ -24,39 +24,38 @@ in {
 
   nixpkgs.config.allowUnfree = true;
 
-  nixpkgs.config.packageOverrides = self : rec {
-    blender = self.blender.override {
-      cudaSupport = true;
-    };
-  };
+  # nixpkgs.config.packageOverrides = self : rec {
+  #   blender = self.blender.override {
+  #     cudaSupport = true;
+  #   };
+  # };
 
   home.packages = with pkgs; [
     unstable.cachix
-    # unstable.postman
+    unstable.postman
     unstable.steam
     unstable.steam-run
     # unstable.unityhub
 
-    ghcide-nix.ghcide-ghc865
+    # ghcide-nix.ghcide-ghc865
 
     bat                 # cat clone with syntax highlighting and git integration
     bmon                # network monitor
     dmenu               # minimal desktop menu
     dropbox
-    fasd
     fd                  # find entries in filesystem
     fortune
     gnome3.cheese       # webcam photos
     google-chrome
     htop
     jmtpfs              # Media Transfer Protocol (usb device filesystems)
-    joplin
-    joplin-desktop      # notes
+    # unstable.joplin-desktop # notes
     jq
     kitty               # terminal
     lxmenu-data         # installed apps
     nix-zsh-completions
     mosh                # ssh alternative
+    unstable.pandoc     # document converter
     pavucontrol
     pcmanfm-qt          # GUI file manager
     qalculate-gtk       # calculator
@@ -69,13 +68,14 @@ in {
     translate-shell
     units
     xarchiver
+    xfce.thunar
     yubioath-desktop
     zeal                # docs (like dash)
 
     # graphics / print
     blender
     flameshot           # screenshots (PrtSc)
-    unstable.gimp-with-plugins
+    gimp-with-plugins
     scribusUnstable     # page layout
     scrot               # CLI screenshotter
 
@@ -98,11 +98,14 @@ in {
 
     # programming - haskell
     ghc
+    cabal2nix
+    cabal-install
     haskellPackages.apply-refact
     haskellPackages.ghcid
-    haskellPackages.hindent
+    haskellPackages.haskell-language-server
     haskellPackages.hlint
     unstable.haskellPackages.stylish-haskell
+    unstable.stack
 
     # programming - python
     python3Packages.pynvim # for neovim
@@ -112,25 +115,25 @@ in {
     rubyPackages_2_6.pry
 
     # chat / email
-    # unstable.discord
+    unstable.discord
     neomutt             # CLI mail
     protonmail-bridge
     signal-desktop
     slack
-    thunderbird
+    thunderbird-bin
     weechat
     unstable.zoom-us
 
     # fonts (format with !column -t)
-    aileron            comfortaa              dejavu_fonts             dina-font
+    aileron            comfortaa              dejavu_fonts
     eunomia            f5_6                   fantasque-sans-mono      ferrum
     fira               fira-code              fira-code-symbols        fira-mono
     font-awesome       helvetica-neue-lt-std  hermit                   ibm-plex
     inconsolata        iosevka                league-of-moveable-type  liberation_ttf
     libre-baskerville  libre-bodoni           libre-caslon             libre-franklin
     medio              mplus-outline-fonts    national-park-typeface   norwester-font
-    penna              proggyfonts            route159                 seshat
-    siji               tenderness             vegur                    vistafonts
+    penna              route159               seshat
+    tenderness         vegur                  vistafonts
 
     # formatters
     unstable.nixfmt
@@ -140,6 +143,7 @@ in {
     # media
     calibre             # e-book library
     evince              # another PDF viewer
+    handbrake           # dvd ripper
     mplayer
     mpv
     ncmpcpp
@@ -171,13 +175,24 @@ in {
   };
 
   programs = {
-    home-manager.enable = true;
+    broot.enable        = true; # directory browser
 
-    direnv.enable       = true;
+    direnv = {
+      enable = true;
+      enableNixDirenvIntegration = true;
+    };
+
     emacs.enable        = true;
     firefox.enable      = true;
     fzf.enable          = true;
+    home-manager.enable = true;
     keychain.enable     = true;
+
+    z-lua = {       # directory quick nav
+      enable        = true;
+      enableAliases = true;
+      options       = ["enhanced" "once" "fzf"];
+    };
   };
 
   services = {
@@ -191,12 +206,10 @@ in {
       vSync        = true;
       # vSync        = "opengl";
       extraOptions = ''
-        clear-shadow          = true;
         glx-no-rebind-pixmap  = true;
         glx-no-stencil        = true;
         # glx-copy-from-front   = false;
-        glx-swap-method       = "copy";
-        paint-on-overlay      = true;
+        use-damage            = true;
         xrender-sync-fence    = true;
       '';
     };
@@ -206,8 +219,6 @@ in {
       defaultCacheTtl  = (60 * 60 * 4);
       enableSshSupport = true;
     };
-
-    lorri.enable = true;
 
     mpd.enable = true;
 
@@ -231,8 +242,10 @@ in {
     platformTheme = "gtk"; # gnome or gtk
   };
 
-  xdg.enable = true;
-  xdg.userDirs.enable = true;
+  xdg = {
+    enable = true;
+    userDirs.enable = true;
+  };
 
   xsession = {
     enable = true;
@@ -266,23 +279,31 @@ in {
     };
   };
 
-  home.file.".ghci".text = ''
-    :seti -XGADTSyntax
-    :seti -XGeneralizedNewtypeDeriving
-    :seti -XInstanceSigs
-    :seti -XLambdaCase
-    :seti -XPartialTypeSignatures
-    :seti -XScopedTypeVariables
-    :seti -XTypeApplications
-    :seti -XOverloadedStrings
-    :set prompt "\ESC[1;34m%s\n\ESC[0;34mλ> \ESC[m"
-    :set prompt-cont " \ESC[0;34m| \ESC[m"
-    :set +t
-  '';
+  home.file = {
+    ".ghci".text = ''
+      :seti -XGADTSyntax
+      :seti -XGeneralizedNewtypeDeriving
+      :seti -XInstanceSigs
+      :seti -XLambdaCase
+      :seti -XPartialTypeSignatures
+      :seti -XScopedTypeVariables
+      :seti -XTypeApplications
+      :seti -XOverloadedStrings
+      :set prompt "\ESC[1;34m%s\n\ESC[0;34mλ> \ESC[m"
+      :set prompt-cont " \ESC[0;34m| \ESC[m"
+      :set +t
+    '';
 
-  home.file.".railsrc".text = ''
-    --skip-spring
-  '';
+    ".psqlrc".text = ''
+      \setenv PAGER less
+      \setenv LESS -IS
+      \pset linestyle unicode
+    '';
+
+    ".railsrc".text = ''
+      --skip-spring
+    '';
+  };
 
   imports = [
     ./accounts
@@ -290,12 +311,13 @@ in {
     ./services/dunst
     ./services/polybar
     ./services/spotifyd
+    ./programs/alacritty
     ./programs/git
     ./programs/kitty
     ./programs/neomutt
     ./programs/neovim
     ./programs/rofi
-    # ./programs/st
+    ./programs/st
     ./programs/tmux
     ./programs/vim
     ./programs/zathura
