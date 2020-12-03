@@ -121,6 +121,7 @@
         firefox
         rxvt_unicode-with-plugins
         xclip
+        xorg.xkill
         xorg.xmessage
         xsel
         vimHugeX
