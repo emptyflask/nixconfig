@@ -110,6 +110,9 @@
         };
       };
     };
+
+    tumbler.enable = true; # thumbnail generator
+
     udev = {
       packages = [
         pkgs.libu2f-host
