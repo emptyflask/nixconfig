@@ -22,6 +22,7 @@ in
 
       jon = backup "/home/jon" // {
         exclude = [
+          "/home/jon/keybase"
           "/home/jon/tmp"
           "/home/jon/Downloads"
           "'**/.cache'"
