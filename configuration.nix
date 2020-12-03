@@ -129,18 +129,30 @@
 
   in common ++ (if config.services.xserver.enable then x else nox);
 
-  fonts.fonts = with pkgs; [
-    corefonts
-    fira
-    fira-code
-    fira-code-symbols
-    font-awesome
-    ibm-plex
-    noto-fonts
-    noto-fonts-cjk
-    noto-fonts-emoji
-    ubuntu_font_family
-  ];
+  fonts = {
+    enableDefaultFonts = true;
+    fonts = with pkgs; [
+      corefonts
+      dejavu_fonts
+      fira
+      fira-code
+      fira-code-symbols
+      font-awesome
+      ibm-plex
+      noto-fonts
+      noto-fonts-cjk
+      noto-fonts-emoji
+      ubuntu_font_family
+      (nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" ]; })
+    ];
+    fontconfig = {
+      defaultFonts = {
+        serif     = [ "DejaVu Serif" ];
+        sansSerif = [ "DejaVu Sans" ];
+        monospace = [ "Fira Mono" ];
+      };
+    };
+  };
 
   nix.extraOptions = ''
     keep-outputs = true
