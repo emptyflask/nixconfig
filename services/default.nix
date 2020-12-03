@@ -67,8 +67,46 @@
     printing.enable = true;
     redis.enable    = true;
     sabnzbd.enable  = true; # Usenet downloader
-    samba.enable    = true; # Windows file sharing
 
+    # Windows file sharing
+    samba = {
+      enable = true;
+      securityType = "user";
+      extraConfig = ''
+        workgroup      = WORKGROUP
+        server string  = nixos
+        netbios name   = nixos
+        security       = user
+        hosts allow    = 10., 192.168., localhost
+        hosts deny     = 0.0.0.0/0
+        guest account  = nobody
+        map to guest   = bad user
+        # use sendfile   = yes
+        # max protocol   = smb2
+      '';
+      shares = {
+        public = {
+          "path"           = "/home/jon/public";
+          "browseable"     = "yes";
+          "read only"      = "no";
+          "guest ok"       = "yes";
+          "create mask"    = "0644";
+          "directory mask" = "0755";
+          "force user"     = "jon";
+          "force group"    = "users";
+        };
+        incoming = {
+          "path"           = "/home/jon/public/incoming";
+          "browseable"     = "no";
+          "read only"      = "no";
+          "guest ok"       = "yes";
+          "create mask"    = "0644";
+          "directory mask" = "0755";
+          "force user"     = "jon";
+          "force group"    = "users";
+        };
+      };
+    };
     udev = {
       packages = [
         pkgs.libu2f-host

@@ -65,9 +65,12 @@
 
     firewall = {
       enable = true;
-      allowedTCPPorts = [ 22 ];
-      allowedUDPPorts = [ ];
+      allowedTCPPorts = [ 22 139 445 ];
+      allowedUDPPorts = [ 137 138 ];
       allowPing = true;
+      extraCommands = ''
+        iptables -t raw -A OUTPUT -p udp -m udp --dport 137 -j CT --helper netbios-ns
+      '';
     };
   };
 
