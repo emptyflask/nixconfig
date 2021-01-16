@@ -22,6 +22,7 @@
         "networkmanager"
         "postgres"
         "sabnzbd"
+        "vboxusers"
         "wheel"
       ];
       shell = pkgs.zsh;
@@ -33,6 +34,5 @@
       ];
     };
 
-    extraGroups.vboxusers.members = ["jon"];
   };
 }
