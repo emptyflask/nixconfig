@@ -39,32 +39,43 @@ in {
   home.packages = with pkgs; [
     unstable.cachix
     unstable.postman
-    unstable.steam
-    unstable.steam-run
-    # unstable.unityhub
 
     # ghcide-nix.ghcide-ghc865
 
     bat                 # cat clone with syntax highlighting and git integration
+    bc                  # cli calculator
     bmon                # network monitor
     dmenu               # minimal desktop menu
     dropbox
+    unstable.exodus     # crypto wallet
     fd                  # find entries in filesystem
     fortune
     gnome3.cheese       # webcam photos
+    # gnome3.gnome-calendar
+    # gnome3.gnome-control-center
     google-chrome
     htop
     jmtpfs              # Media Transfer Protocol (usb device filesystems)
-    # unstable.joplin-desktop # notes
+    unstable.joplin-desktop # notes
     jq
+    keybase
+    keybase-gui
+    killall
     kitty               # terminal
+    # libnotify
+    # libXScrnSaver
+    libreoffice
     lxmenu-data         # installed apps
-    nix-zsh-completions
     mosh                # ssh alternative
-    unstable.pandoc     # document converter
+    nix-index
+    nix-prefetch-git
+    nix-zsh-completions
+    nixops
     pavucontrol
-    pcmanfm-qt          # GUI file manager
+    # pcmanfm-qt          # GUI file manager
     qalculate-gtk       # calculator
+    unstable.pandoc     # document converter
+    qemu
     ranger              # CLI file manager
     ripgrep
     scowl               # spellchecker / dictionary
@@ -76,27 +87,46 @@ in {
     xarchiver
     xfce.thunar
     yubioath-desktop
+    yubikey-personalization
     zeal                # docs (like dash)
 
+    # games
+    unstable.steam
+    unstable.steam-run
+    # unstable.unityhub
+
     # graphics / print
+    # adobe-reader
     blender
+    darktable
+    ffmpegthumbnailer
     flameshot           # screenshots (PrtSc)
     gimp-with-plugins
+    imagemagick
+    krita
+    meshlab
     scribusUnstable     # page layout
     scrot               # CLI screenshotter
 
     # programming - general
     aws-sam-cli         # AWS serverless app model
+    dbeaver
     docker-compose
     exercism
+    foreman
     gnumake
+    html-tidy
     ltrace              # lib trace
+    niv                 # nix channel config
     sourceHighlight
     shellcheck          # shell script analyzer
     strace              # system call trace
     tig                 # git tui frontend
     universal-ctags
     unstable.vscode
+
+    # programming - elixir / erlang
+    elixir
 
     # programming - javascript
     nodejs
@@ -110,6 +140,7 @@ in {
     haskellPackages.ghcid
     haskellPackages.haskell-language-server
     haskellPackages.hlint
+    haskellPackages.yesod
     unstable.haskellPackages.stylish-haskell
     unstable.stack
 
@@ -117,6 +148,8 @@ in {
     python3Packages.pynvim # for neovim
 
     # programming - ruby
+    bundix
+    jekyll
     ruby
     rubyPackages_2_6.pry
 
