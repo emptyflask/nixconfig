@@ -24,7 +24,11 @@
     };
 
     emacs.enable                = false;
-    gnome3.gnome-keyring.enable = true;
+    gnome3 = {
+      # evolution-data-server.enable = true;
+      gnome-online-accounts.enable = true;
+      gnome-keyring.enable = true;
+    };
     gvfs.enable                 = true; # automount
     kbfs.enable                 = true; # $HOME/keybase
     keybase.enable              = true;
