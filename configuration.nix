@@ -137,12 +137,20 @@
       fira
       fira-code
       fira-code-symbols
-      font-awesome
+      fira-mono
+      helvetica-neue-lt-std
       ibm-plex
+      inconsolata
+      liberation_ttf
+      libre-baskerville
+      libre-bodoni
+      libre-caslon
+      libre-franklin
       noto-fonts
       noto-fonts-cjk
       noto-fonts-emoji
       ubuntu_font_family
+      vistafonts
       (nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" ]; })
     ];
     fontconfig = {
@@ -163,6 +171,7 @@
   # started in user sessions.
   # programs.mtr.enable = true;
 
+  # programs.dconf.enable = true;
   programs.gnupg.agent = { enable = true; enableSSHSupport = true; };
   programs.seahorse.enable = true;
 
