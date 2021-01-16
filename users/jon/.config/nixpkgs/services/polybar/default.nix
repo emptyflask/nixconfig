@@ -87,7 +87,7 @@ with pkgs;
       "bar/desktop" = {
         "inherit"      = "commonbar";
         modules-left   = "xmonad-workspaces xmonad-title ewmh";
-        modules-center = "cpu memory swap";
+        modules-center = "cpu memory swap filesystem";
         modules-right  = "mpd volume popup-calendar openvpn-status";
       };
 
@@ -167,6 +167,14 @@ with pkgs;
         exec = "free | grep Swap | awk '{printf(\"%d%\"), $3/$2 * 100}'";
         interval = 3;
         format-underline = "\${colors.yellow}";
+      };
+
+      "module/filesystem" = {
+        type = "internal/fs";
+        interval = 25;
+        mount-0 = "/";
+        mount-1 = "/home";
+        label-mounted = "%percentage_used%%";
       };
 
       "module/date" = {
