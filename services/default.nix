@@ -139,4 +139,6 @@
     postgresql = import ./postgresql pkgs;
     xserver    = import ./xserver.nix;
   };
+
+  imports = [ ./hoogle ];
 }

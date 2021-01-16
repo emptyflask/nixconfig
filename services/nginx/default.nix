@@ -39,5 +39,10 @@
       "nearby.sxsw.localhost"        = proxy 5009 // {  };
       "image-manager.sxsw.localhost" = proxy 5010 // {  };
       "logger.sxsw.localhost"        = proxy 5011 // {  };
+      "fif.sxsw.localhost"           = proxy 5012 // {  };
+      "artist.sxsw.localhost"        = proxy 5013 // {  };
+
+      "sabnzbd.localhost"            = proxy 8080 // {  };
+      "hoogle.localhost"             = proxy 8081 // {  };
     };
 }
