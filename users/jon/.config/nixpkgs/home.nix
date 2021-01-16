@@ -291,12 +291,14 @@ in {
       :seti -XGeneralizedNewtypeDeriving
       :seti -XInstanceSigs
       :seti -XLambdaCase
+      :seti -XOverloadedStrings
       :seti -XPartialTypeSignatures
       :seti -XScopedTypeVariables
       :seti -XTypeApplications
-      :seti -XOverloadedStrings
-      :set prompt "\ESC[1;34m%s\n\ESC[0;34mλ> \ESC[m"
-      :set prompt-cont " \ESC[0;34m| \ESC[m"
+      :set prompt "\ESC[1;34m\STX%s\n\ESC[0;34m\STXλ> \ESC[m\STX"
+      :set prompt-cont " \ESC[0;34m\STX| \ESC[m\STX"
+      :set +m
+      :set +s
       :set +t
     '';
 
