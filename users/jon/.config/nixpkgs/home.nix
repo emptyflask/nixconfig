@@ -167,8 +167,8 @@ in {
   gtk = {
     enable = true;
     iconTheme = {
-      package = pkgs.paper-icon-theme;
-      name = "Paper";
+      package = pkgs.zafiro-icons;
+      name = "Zafiro";
     };
     font = {
       name = "Noto Sans 10";
