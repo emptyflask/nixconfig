@@ -8,7 +8,8 @@ with pkgs;
 {
   programs.neovim = {
     enable    = true;
-    package   = neovim-unwrapped;
+    # package   = neovim-unwrapped;
+    package   = neovim-nightly;
 
     viAlias   = true;
     vimAlias  = false;
@@ -35,6 +36,7 @@ with pkgs;
       Rename
       Tabular
       Tagbar
+      coc-fzf
       coc-json
       coc-nvim
       coc-solargraph
@@ -47,7 +49,8 @@ with pkgs;
       ghc-mod-vim
       gitgutter
       gruvbox-community
-      hlint-refactor
+      haskell-vim
+      # hlint-refactor
       # intero-neovim
       lightline-vim
       # neco-ghc

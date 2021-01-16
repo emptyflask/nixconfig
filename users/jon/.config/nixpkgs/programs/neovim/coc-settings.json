@@ -4,10 +4,11 @@
       "command": "haskell-language-server-wrapper",
       "args": ["--lsp"],
       "rootPatterns": [
-        ".stack.yaml",
-        ".hie-bios",
-        "BUILD.bazel",
+        "*.cabal",
+        "hie.yaml",
+        "stack.yaml",
         "cabal.config",
+        "cabal.project",
         "package.yaml"
       ],
       "filetypes": [
@@ -16,14 +17,16 @@
         "haskell",
         "lhaskell"
       ],
-      "settings": {
-        "hlintOn": true,
-        "maxNumberOfProblems": 10,
-        "completionSnippetsOn": true
+      "initializationOptions": {
+        "languageServerHaskell": {
+          "hlintOn": true,
+          "maxNumberOfProblems": 10,
+          "completionSnippetsOn": true
+        }
       }
     }
   },
-
+  "codeLens.enable": true,
   "solargraph.checkGemVersion": false,
   "solargraph.promptDownload": false
 }
