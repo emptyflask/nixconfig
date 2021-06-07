@@ -74,6 +74,11 @@
     };
   };
 
+  nix = {
+    binaryCaches          = [ "https://hydra.iohk.io" "https://iohk.cachix.org" ];
+    binaryCachePublicKeys = [ "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ=" "iohk.cachix.org-1:DpRUyj7h7V830dp/i6Nti+NEO2/nhblbov/8MW7Rqoo=" ];
+  };
+
   console = {
     font = "Lat2-Terminus16";
     keyMap = "us";
@@ -109,6 +114,9 @@
         unrar
         unzip
         usbutils
+        vulkan-tools
+        vulkan-loader
+        vulkan-validation-layers
         w3m
         wget
         zip
@@ -186,6 +194,10 @@
 
     opengl.enable = true;
     opengl.driSupport32Bit = true;
+    opengl.extraPackages32 = with pkgs.pkgsi686Linux; [ libva ];
+    opengl.setLdLibraryPath = true;
+
+    video.hidpi.enable = true;
   };
 
   sound.enable = true;
