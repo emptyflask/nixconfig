@@ -1,6 +1,8 @@
 {pkgs, ...}:
 
 {
+  imports = [ <home-manager/nixos> ];
+
   nix.trustedUsers = [ "root" "jon" ];
 
   environment.homeBinInPath = true;
@@ -34,5 +36,10 @@
       ];
     };
 
+  };
+
+  home-manager = {
+    useUserPackages = true;
+    users.jon = import ./jon/home-manager/home-nixos.nix;
   };
 }
