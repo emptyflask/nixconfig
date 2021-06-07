@@ -5,6 +5,8 @@
     accounts-daemon.enable = true;
     acpid.enable           = true; # Advanced Configuration and Power Interface
     apcupsd.enable         = true; # UPS daemon
+    blueman.enable         = true; # bluetooth manager
+    chrony.enable          = true; # Time sync (replaces ntpd)
     clipmenu.enable        = true;
 
     dbus.packages = with pkgs; [ gnome3.dconf ];
@@ -61,8 +63,6 @@
       enable = false;
       musicDirectory = "/media/repository/music";
     };
-
-    ntp.enable = true; # Time sync
 
     openssh = {
       enable = true;
