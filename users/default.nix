@@ -1,7 +1,7 @@
 {pkgs, ...}:
 
 {
-  imports = [ <home-manager/nixos> ];
+  # imports = [ <home-manager/nixos> ];
 
   nix.trustedUsers = [ "root" "jon" ];
 
@@ -22,6 +22,9 @@
         "libvirtd"
         "mlocate"
         "networkmanager"
+        "nzbget"
+        "plex"
+        "podman"
         "postgres"
         "sabnzbd"
         "vboxusers"
@@ -36,10 +39,15 @@
       ];
     };
 
+    users.plex = {
+      group = "media";
+      isSystemUser = true;
+    };
+    groups.media = {};
   };
 
-  home-manager = {
-    useUserPackages = true;
-    users.jon = import ./jon/home-manager/home-nixos.nix;
-  };
+  # home-manager = {
+  #   useUserPackages = true;
+  #   users.jon = import ./jon/home-manager/home-nixos.nix;
+  # };
 }
