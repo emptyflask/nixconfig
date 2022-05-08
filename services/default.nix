@@ -5,6 +5,20 @@
     accounts-daemon.enable = true;
     acpid.enable           = true; # Advanced Configuration and Power Interface
     apcupsd.enable         = true; # UPS daemon
+
+    avahi = {
+      enable = true;
+      nssmdns = true;
+      publish = {
+        enable       = true;
+        addresses    = true;
+        domain       = true;
+        hinfo        = true;
+        userServices = true;
+        workstation  = true;
+      };
+    };
+
     blueman.enable         = true; # bluetooth manager
     chrony.enable          = true; # Time sync (replaces ntpd)
     clipmenu.enable        = true;
