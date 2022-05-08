@@ -46,6 +46,7 @@ in
       # };
       systemd-boot = {
         enable = true;
+        configurationLimit = 32;
         consoleMode = "max";
         memtest86.enable = true;
       };
@@ -59,10 +60,11 @@ in
       options usbcore       autosuspend=-1
     '';
   };
-  
+
   networking = {
     hostName = "nixos"; # Define your hostname.
     # wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+
     networkmanager = {
       enable = true;
       enableStrongSwan = true;
@@ -80,6 +82,11 @@ in
   };
 
   nix = {
+    extraOptions = ''
+      experimental-features = nix-command flakes
+      keep-derivations = true
+      keep-outputs = true
+    '';
     binaryCaches          = [
       "https://cache.nixos.org/"
       "https://hydra.iohk.io"
@@ -103,11 +110,11 @@ in
 
   time.timeZone = "America/Chicago";
 
-  environment.systemPackages = with pkgs;
-  let
+  environment.systemPackages =
+    let
       # Packages to always install.
-      common = [
-        ag
+      common = with pkgs; [
+        arion
         bind
         binutils
         file
@@ -125,21 +132,21 @@ in
         pciutils
         ripgrep
         rsync
+        silver-searcher
         tree
         unrar
         unzip
         usbutils
-        vulkan-tools
-        vulkan-loader
-        vulkan-validation-layers
         w3m
         wget
         zip
       ];
 
-      nox = [ vim ];
+      # command-line-only
+      nox = with pkgs; [ vim ];
 
-      x = [
+      # with Xorg
+      x = with pkgs; [
         feh
         firefox
         rxvt_unicode-with-plugins
@@ -148,9 +155,12 @@ in
         xorg.xmessage
         xsel
         vimHugeX
+        vulkan-tools
+        vulkan-loader
+        vulkan-validation-layers
       ];
 
-  in common ++ (if config.services.xserver.enable then x else nox);
+    in common ++ (if config.services.xserver.enable then x else nox);
 
   fonts = {
     enableDefaultFonts = true;
@@ -174,7 +184,6 @@ in
       noto-fonts-emoji
       ubuntu_font_family
       vistafonts
-      (nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" ]; })
     ];
     fontconfig = {
       defaultFonts = {
@@ -185,11 +194,6 @@ in
     };
   };
 
-  nix.extraOptions = ''
-    keep-outputs = true
-    keep-derivations = true
-  '';
-
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
@@ -197,6 +201,7 @@ in
   # programs.dconf.enable = true;
   programs.gnupg.agent = { enable = true; enableSSHSupport = true; };
   programs.seahorse.enable = true;
+  programs.steam.enable = true;
 
   hardware = {
     bluetooth.enable = true;
@@ -221,6 +226,10 @@ in
     docker = {
       enable = true;
       autoPrune.enable = true;
+    };
+    podman = {
+      enable = true;
+      defaultNetwork.dnsname.enable = true;
     };
     libvirtd.enable = true;
     virtualbox = {

@@ -23,7 +23,7 @@
     chrony.enable          = true; # Time sync (replaces ntpd)
     clipmenu.enable        = true;
 
-    dbus.packages = with pkgs; [ gnome3.dconf ];
+    dbus.packages = with pkgs; [ dconf ];
 
     devmon.enable = true;
 
@@ -40,7 +40,7 @@
     };
 
     emacs.enable                = false;
-    gnome3 = {
+    gnome = {
       # evolution-data-server.enable = true;
       gnome-online-accounts.enable = true;
       gnome-keyring.enable = true;
@@ -55,7 +55,7 @@
       extraConfig = ''
         font-name=Fira Code Regular
         font-size=12
-        font-dpi=96
+        font-dpi=110
       '';
     };
 
