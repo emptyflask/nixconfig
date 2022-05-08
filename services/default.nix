@@ -71,6 +71,14 @@
     };
 
     pcscd.enable    = true; # Smartcard reader
+
+#     plex = {
+#       enable = true;
+#       dataDir = "/media/repository/movies";
+#       openFirewall = true;
+#       package = nixUnstable.plex;
+#     };
+
     printing.enable = true;
     redis.enable    = true;
     sabnzbd.enable  = true; # Usenet downloader

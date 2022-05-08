@@ -4,6 +4,11 @@
 
 { config, pkgs, ... }:
 
+let
+  plexTcpPorts = [ 32400 3005 8324 32469 ];
+  plexUdpPorts = [ 1900 5353 32410 32412 32413 32414 ];
+
+in
 {
   # make a copy of this configuration, just in case
   environment.etc.current-nixos-config.source = ./.;
@@ -65,8 +70,8 @@
 
     firewall = {
       enable = true;
-      allowedTCPPorts = [ 22 139 445 ];
-      allowedUDPPorts = [ 137 138 ];
+      allowedTCPPorts = [ 22 139 445 ] ++ plexTcpPorts;
+      allowedUDPPorts = [ 137 138 ] ++ plexUdpPorts;
       allowPing = true;
       extraCommands = ''
         iptables -t raw -A OUTPUT -p udp -m udp --dport 137 -j CT --helper netbios-ns
