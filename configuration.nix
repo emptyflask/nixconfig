@@ -230,6 +230,21 @@ in
       # host.enableExtensionPack = true;
       host.addNetworkInterface = true;
     };
+    oci-containers.containers.plex = {
+      environment = {
+        TZ = "America/Chicago";
+        PUID = toString config.users.users.plex.uid;
+        PGID = toString config.users.groups.media.gid;
+        PLEX_CLAIM = "claim-yxovhjy9R4QmnHSVMvUZ";
+        VERSION = "latest";
+      };
+      extraOptions = ["--network=host"];
+      image = "linuxserver/plex";
+      volumes = [
+        "/media/repository/movies:/media"
+        "/media/plex-config:/config"
+      ];
+    };
   };
 
   # This value determines the NixOS release with which your system is to be
