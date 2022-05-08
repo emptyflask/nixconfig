@@ -95,7 +95,14 @@
 
     printing.enable = true;
     redis.enable    = true;
-    sabnzbd.enable  = true; # Usenet downloader
+
+    # Usenet downloader
+    nzbget = {
+      enable = true;
+      settings = {
+      };
+    };
+    sabnzbd.enable = false;
 
     # Windows file sharing
     samba = {
