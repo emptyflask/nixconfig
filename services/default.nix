@@ -28,7 +28,7 @@
     devmon.enable = true;
 
     elasticsearch = {
-      enable = true;
+      enable = false;
       cluster_name = "schrödinger";
       plugins = with pkgs.elasticsearchPlugins; [
         # analysis-icu
