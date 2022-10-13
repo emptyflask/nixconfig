@@ -82,23 +82,37 @@ in
   };
 
   nix = {
+    gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 30d";
+    };
+    optimise.automatic = true;
+
     extraOptions = ''
       experimental-features = nix-command flakes
       keep-derivations = true
       keep-outputs = true
+      min-free = ${toString  (100 * 1024 * 1024)} # 100MiB
+      max-free = ${toString (1024 * 1024 * 1024)} # 1GiB
     '';
-    binaryCaches          = [
-      "https://cache.nixos.org/"
-      "https://hydra.iohk.io"
-      # "https://iohk.cachix.org"
-      "https://nixcache.reflex-frp.org"
 
-    ];
-    binaryCachePublicKeys = [
-      "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ="
-      # "iohk.cachix.org-1:DpRUyj7h7V830dp/i6Nti+NEO2/nhblbov/8MW7Rqoo="
-      "ryantrinkle.com-1:JJiAKaRv9mWgpVAz8dwewnZe0AzzEAzPkagE9SP5NWI="
-    ];
+    settings = {
+      auto-optimise-store = true;
+
+      substituters = [
+        "https://cache.nixos.org/"
+        "https://hydra.iohk.io"
+        # "https://iohk.cachix.org"
+        "https://nixcache.reflex-frp.org"
+      ];
+
+      trusted-public-keys = [
+        "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ="
+        # "iohk.cachix.org-1:DpRUyj7h7V830dp/i6Nti+NEO2/nhblbov/8MW7Rqoo="
+        "ryantrinkle.com-1:JJiAKaRv9mWgpVAz8dwewnZe0AzzEAzPkagE9SP5NWI="
+      ];
+    };
   };
 
   console = {
