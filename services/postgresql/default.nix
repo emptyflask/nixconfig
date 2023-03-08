@@ -1,13 +1,15 @@
 { pkgs, ... }:
 
-let mypg = pkgs.postgresql_10; in
+let mypg = pkgs.postgresql_12;
+
+in
 {
     enable = true;
     package = mypg;
 
     extraPlugins = with mypg.pkgs; [
       # (pkgs.postgis.override { postgresql = pkgs.postgresql_10; })
-      postgis
+      # postgis
     ];
 
     enableTCPIP = true;

@@ -2,7 +2,7 @@
   enable = true;
   layout = "us";
   xkbVariant = "altgr-intl";
-  # xkbOptions = "eurosign:e";
+  xkbOptions = "compose:sclk";
 
   # Enable touchpad support.
   # libinput.enable = true;
@@ -32,3 +32,4 @@
   '';
 
 }
+

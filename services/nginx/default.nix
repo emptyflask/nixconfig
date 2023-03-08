@@ -45,13 +45,31 @@
         # };
       };
 
+      proxyWithVite = appPort: wsPort: base {
+        "/" = {
+          proxyPass = "http://127.0.0.1:" + toString(appPort) + "/";
+          # proxyWebsockets = true;
+        };
+        "/vite-dev" = {
+          proxyPass = "http://127.0.0.1:" + toString(wsPort) + "/";
+          proxyWebsockets = true;
+          extraConfig = ''
+            proxy_set_header   X-Forwarded-For $remote_addr;
+            proxy_set_header   Host $host;
+            proxy_redirect off;
+            proxy_set_header Upgrade $http_upgrade;
+            proxy_set_header Connection "upgrade";
+          '';
+        };
+      };
+
     in {
-      "id.sxsw.localhost"            = proxy 5000 // { default = true };
+      "id.sxsw.localhost"            = proxy 5000 // { default = true; };
       "cart.sxsw.localhost"          = proxy 5001 // {};
       "social.sxsw.localhost"        = proxy 5002 // {};
       "panelpicker.sxsw.localhost"   = proxy 5003 // {};
-      "distro.sxsw.localhost"        = proxy 5004 // {};
-      "chronos.sxsw.localhost"       = proxy 5005 // {};
+      "distro.sxsw.localhost"        = proxyWithVite 5004 7004 // {};
+      "chronos.sxsw.localhost"       = proxyWithVite 5005 7005 // {};
       "abraxas.sxsw.localhost"       = proxy 5006 // {};
       "me-cart.sxsw.localhost"       = proxy 5007 // {};
       "coupons.sxsw.localhost"       = proxy 5008 // {};
@@ -60,6 +78,9 @@
       "logger.sxsw.localhost"        = proxy 5011 // {};
       "fif.sxsw.localhost"           = proxy 5012 // {};
       "artist.sxsw.localhost"        = proxy 5013 // {};
+      "spg.sxsw.localhost"           = proxy 5014 // {};
+      "rsvp.sxsw.localhost"          = proxy 5015 // {};
+      "sxxpress.sxsw.localhost"      = proxy 5016 // {};
 
       "usenet.localhost"             = proxy 6789 // {};
       "hoogle.localhost"             = proxy 6800 // {};

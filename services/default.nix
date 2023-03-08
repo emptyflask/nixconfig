@@ -28,32 +28,38 @@
     devmon.enable = true;
 
     elasticsearch = {
-      enable = false;
+      enable = true;
       cluster_name = "schrödinger";
+      package = pkgs.elasticsearch7;
       plugins = with pkgs.elasticsearchPlugins; [
-        # analysis-icu
-        # analysis-lemmagen
-        # analysis-phonetic
+        analysis-icu
+        analysis-lemmagen
+        analysis-phonetic
       ];
       extraConf = "";
       extraJavaOptions = [ "-Xms500m" "-Xmx1g" ];
     };
 
-    emacs.enable                = false;
+    emacs.enable = false;
+
     gnome = {
       # evolution-data-server.enable = true;
       gnome-online-accounts.enable = true;
       gnome-keyring.enable = true;
     };
+
+    flatpak.enable              = true;
     gvfs.enable                 = true; # automount
     kbfs.enable                 = true; # $HOME/keybase
     keybase.enable              = true;
 
     kmscon = {
       enable = true;
-      hwRender = true;
+      hwRender = false;
+      fonts = [
+        { name = "Fira Code Regular"; package = pkgs.fira-code; }
+      ];
       extraConfig = ''
-        font-name=Fira Code Regular
         font-size=12
         font-dpi=110
       '';
@@ -73,6 +79,8 @@
       RuntimeDirectorySize=2G
     '';
 
+    memcached.enable = true;
+
     mpd = {
       enable = false;
       musicDirectory = "/media/repository/music";
@@ -80,8 +88,10 @@
 
     openssh = {
       enable = true;
-      passwordAuthentication = false;
-      permitRootLogin = "no";
+      settings = {
+        PasswordAuthentication = false;
+        PermitRootLogin = "no";
+      };
     };
 
     pcscd.enable    = true; # Smartcard reader
@@ -94,7 +104,11 @@
 #     };
 
     printing.enable = true;
-    redis.enable    = true;
+
+    redis.servers."" = {
+      enable = true;
+      port = 6379;
+    };
 
     # Usenet downloader
     nzbget = {
@@ -171,7 +185,14 @@
     openvpn    = import ./openvpn;
     postgresql = import ./postgresql pkgs;
     xserver    = import ./xserver.nix;
+
+    zerotierone = {
+      enable = false;
+      joinNetworks = ["8bd5124fd6f9a7e6"];
+    };
   };
+
+  systemd.services.NetworkManager-wait-online.enable = false;
 
   imports = [ ./hoogle ];
 }

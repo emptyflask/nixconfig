@@ -3,9 +3,10 @@
 {
   # imports = [ <home-manager/nixos> ];
 
-  nix.trustedUsers = [ "root" "jon" ];
+  nix.settings.trusted-users = [ "root" "jon" ];
 
   environment.homeBinInPath = true;
+  environment.shells = with pkgs; [ bashInteractive zsh ];
 
   users = {
     users.root.initialHashedPassword = "";
@@ -16,6 +17,7 @@
       isNormalUser = true;
       uid = 1000;
       extraGroups = [
+        "adbusers"
         "audio"
         "dialout"
         "docker"

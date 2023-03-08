@@ -163,7 +163,10 @@ in
       x = with pkgs; [
         feh
         firefox
-        rxvt_unicode-with-plugins
+        rxvt-unicode
+        (steam.override {
+          extraPkgs = pkgs: [ wavpack ];
+        }).run
         xclip
         xorg.xkill
         xorg.xmessage
@@ -211,10 +214,12 @@ in
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
-
   # programs.dconf.enable = true;
+
+  programs.adb.enable = true;
   programs.gnupg.agent = { enable = true; enableSSHSupport = true; };
   programs.seahorse.enable = true;
+  programs.ssh.startAgent = false;
   programs.steam.enable = true;
 
   hardware = {
@@ -243,7 +248,7 @@ in
     };
     podman = {
       enable = true;
-      defaultNetwork.dnsname.enable = true;
+      defaultNetwork.settings.dns_enabled = true;
     };
     libvirtd.enable = true;
     virtualbox = {
@@ -253,27 +258,29 @@ in
       # host.enableExtensionPack = true;
       host.addNetworkInterface = true;
     };
-    oci-containers.containers.plex = {
-      environment = {
-        TZ = "America/Chicago";
-        PUID = toString config.users.users.plex.uid;
-        PGID = toString config.users.groups.media.gid;
-        PLEX_CLAIM = "claim-yxovhjy9R4QmnHSVMvUZ";
-        VERSION = "latest";
-      };
-      extraOptions = ["--network=host"];
-      image = "linuxserver/plex";
-      volumes = [
-        "/media/repository/movies:/media"
-        "/media/plex-config:/config"
-      ];
-    };
+    # oci-containers.containers.plex = {
+    #   environment = {
+    #     TZ = "America/Chicago";
+    #     PUID = toString config.users.users.plex.uid;
+    #     PGID = toString config.users.groups.media.gid;
+    #     PLEX_CLAIM = "claim-yxovhjy9R4QmnHSVMvUZ";
+    #     VERSION = "latest";
+    #   };
+    #   extraOptions = ["--network=host"];
+    #   image = "linuxserver/plex";
+    #   volumes = [
+    #     "/media/repository/movies:/media"
+    #     "/media/plex-config:/config"
+    #   ];
+    # };
   };
+
+  xdg.portal.enable = true;
 
   # This value determines the NixOS release with which your system is to be
   # compatible, in order to avoid breaking some software such as database
   # servers. You should change this only after NixOS release notes say you
   # should.
-  system.stateVersion = "18.09"; # Did you read the comment?
+  system.stateVersion = "22.05"; # Did you read the comment?
   system.autoUpgrade.enable = true;
 }
