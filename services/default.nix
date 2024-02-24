@@ -8,7 +8,7 @@
 
     avahi = {
       enable = true;
-      nssmdns = true;
+      nssmdns4 = true;
       publish = {
         enable       = true;
         addresses    = true;
@@ -28,7 +28,7 @@
     devmon.enable = true;
 
     elasticsearch = {
-      enable = true;
+      enable = false;
       cluster_name = "schrödinger";
       package = pkgs.elasticsearch7;
       plugins = with pkgs.elasticsearchPlugins; [
@@ -69,7 +69,7 @@
       enable    = true;
       interval  = "hourly";
       localuser = null;
-      locate    = pkgs.mlocate;
+      package   = pkgs.mlocate;
     };
 
     logind.extraConfig = ''
@@ -95,6 +95,7 @@
     };
 
     pcscd.enable    = true; # Smartcard reader
+    peroxide.enable = true;
 
 #     plex = {
 #       enable = true;
@@ -106,8 +107,12 @@
     printing.enable = true;
 
     redis.servers."" = {
-      enable = true;
+      enable = false;
       port = 6379;
+      settings = {
+        maxmemory = "512mb";
+        maxmemory-policy = "allkeys-lru";
+      };
     };
 
     # Usenet downloader
@@ -180,7 +185,7 @@
     # udisks2.enable = true;
     upower.enable = true;
 
-    borgbackup = import ./borgbackup.nix;
+    # borgbackup = import ./borgbackup.nix;
     nginx      = import ./nginx;
     openvpn    = import ./openvpn;
     postgresql = import ./postgresql pkgs;
@@ -194,5 +199,8 @@
 
   systemd.services.NetworkManager-wait-online.enable = false;
 
-  imports = [ ./hoogle ];
+  imports = [
+    ./hoogle
+    ./traefik
+  ];
 }

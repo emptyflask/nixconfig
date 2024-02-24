@@ -28,13 +28,16 @@ in
     options = ["defaults" "user"];
   };
 
-  fileSystems."/media/backup" =
-    { device = "/dev/disk/by-uuid/82d748cc-d038-405c-9d5d-82d381a0999e";
-    fsType = "ext4";
-    options = ["defaults" "nofail" "user"];
-  };
+  # fileSystems."/media/backup" =
+  #   { device = "/dev/disk/by-uuid/82d748cc-d038-405c-9d5d-82d381a0999e";
+  #   fsType = "ext4";
+  #   options = ["defaults" "nofail" "user"];
+  # };
 
   boot = {
+    kernel = {
+      sysctl = { "vm.swappiness" = "10"; };
+    };
     loader = {
       efi.canTouchEfiVariables = true;
       # grub = {
@@ -101,16 +104,22 @@ in
       auto-optimise-store = true;
 
       substituters = [
+        "https://all-hies.cachix.org"
+        "https://cache.iog.io"
         "https://cache.nixos.org/"
-        "https://hydra.iohk.io"
-        # "https://iohk.cachix.org"
-        "https://nixcache.reflex-frp.org"
+        "https://devenv.cachix.org"
+        "https://digitallyinduced.cachix.org"
+        "https://ghcide-nix.cachix.org"
+        "https://nix-community.cachix.org"
       ];
 
       trusted-public-keys = [
-        "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ="
-        # "iohk.cachix.org-1:DpRUyj7h7V830dp/i6Nti+NEO2/nhblbov/8MW7Rqoo="
-        "ryantrinkle.com-1:JJiAKaRv9mWgpVAz8dwewnZe0AzzEAzPkagE9SP5NWI="
+        "all-hies.cachix.org-1:JjrzAOEUsD9ZMt8fdFbzo3jNAyEWlPAwdVuHw4RD43k="
+        "cache.iog.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ="
+        "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw="
+        "digitallyinduced.cachix.org-1:y+wQvrnxQ+PdEsCt91rmvv39qRCYzEgGQaldK26hCKE="
+        "ghcide-nix.cachix.org-1:ibAY5FD+XWLzbLr8fxK6n8fL9zZe7jS+gYeyxyWYK5c="
+        "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       ];
     };
   };
@@ -172,16 +181,16 @@ in
         xorg.xmessage
         xsel
         vimHugeX
-        vulkan-tools
-        vulkan-loader
-        vulkan-validation-layers
+        # vulkan-tools
+        # vulkan-loader
+        # vulkan-validation-layers
       ];
 
     in common ++ (if config.services.xserver.enable then x else nox);
 
   fonts = {
-    enableDefaultFonts = true;
-    fonts = with pkgs; [
+    enableDefaultPackages = true;
+    packages = with pkgs; [
       corefonts
       dejavu_fonts
       fira
@@ -216,11 +225,14 @@ in
   # programs.mtr.enable = true;
   # programs.dconf.enable = true;
 
+  programs._1password.enable = true;
+  programs._1password-gui = { enable = true; polkitPolicyOwners = [ "jon" ]; };
   programs.adb.enable = true;
   programs.gnupg.agent = { enable = true; enableSSHSupport = true; };
   programs.seahorse.enable = true;
   programs.ssh.startAgent = false;
   programs.steam.enable = true;
+  programs.zsh.enable = true;
 
   hardware = {
     bluetooth.enable = true;
@@ -236,7 +248,7 @@ in
     opengl.extraPackages32 = with pkgs.pkgsi686Linux; [ libva ];
     opengl.setLdLibraryPath = true;
 
-    video.hidpi.enable = true;
+    # video.hidpi.enable = false;
   };
 
   sound.enable = true;
@@ -275,12 +287,15 @@ in
     # };
   };
 
-  xdg.portal.enable = true;
+  xdg.portal = {
+    enable = true;
+    config.common.default = "*";
+  };
 
   # This value determines the NixOS release with which your system is to be
   # compatible, in order to avoid breaking some software such as database
   # servers. You should change this only after NixOS release notes say you
   # should.
   system.stateVersion = "22.05"; # Did you read the comment?
-  system.autoUpgrade.enable = true;
+  system.autoUpgrade.enable = false;
 }

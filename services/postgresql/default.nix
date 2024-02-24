@@ -4,7 +4,7 @@ let mypg = pkgs.postgresql_12;
 
 in
 {
-    enable = true;
+    enable = false;
     package = mypg;
 
     extraPlugins = with mypg.pkgs; [

@@ -1,5 +1,5 @@
 {
-  enable = true;
+  enable = false;
 
   recommendedGzipSettings   = true;
   recommendedOptimisation   = true;
@@ -25,47 +25,22 @@
       proxy = port: base {
         "/" = {
           proxyPass = "http://127.0.0.1:" + toString(port) + "/";
-          proxyWebsockets = true;
         };
-
-        # for webpack-dev-server, starting at port 3035
-        # "/sockjs-node" = {
-        #   proxyPass = "http://127.0.0.1:" + toString(port - 1965);
-        #   proxyWebsockets = true;
-        #   extraConfig = ''
-        #     proxy_set_header   X-Forwarded-For $remote_addr;
-        #     proxy_set_header   Host $host;
-        #     proxy_redirect off;
-        #     proxy_set_header Upgrade $http_upgrade;
-        #     proxy_set_header Connection "upgrade";
-        #   '';
-        # };
-        # "/__webpack_dev_server__" = {
-        #   proxyPass = "http://127.0.0.1:" + toString(port - 1965);
-        # };
       };
 
       proxyWithVite = appPort: wsPort: base {
         "/" = {
           proxyPass = "http://127.0.0.1:" + toString(appPort) + "/";
-          # proxyWebsockets = true;
         };
-        "/vite-dev" = {
-          proxyPass = "http://127.0.0.1:" + toString(wsPort) + "/";
+        "/vite-dev/" = {
+          proxyPass = "http://127.0.0.1:" + toString(wsPort) + "/vite-dev/";
           proxyWebsockets = true;
-          extraConfig = ''
-            proxy_set_header   X-Forwarded-For $remote_addr;
-            proxy_set_header   Host $host;
-            proxy_redirect off;
-            proxy_set_header Upgrade $http_upgrade;
-            proxy_set_header Connection "upgrade";
-          '';
         };
       };
 
     in {
-      "id.sxsw.localhost"            = proxy 5000 // { default = true; };
-      "cart.sxsw.localhost"          = proxy 5001 // {};
+      "id.sxsw.localhost"            = proxyWithVite 5000 7000 // { default = true; };
+      "cart.sxsw.localhost"          = proxyWithVite 5001 7001 // {};
       "social.sxsw.localhost"        = proxy 5002 // {};
       "panelpicker.sxsw.localhost"   = proxy 5003 // {};
       "distro.sxsw.localhost"        = proxyWithVite 5004 7004 // {};
@@ -76,11 +51,12 @@
       "nearby.sxsw.localhost"        = proxy 5009 // {};
       "image-manager.sxsw.localhost" = proxy 5010 // {};
       "logger.sxsw.localhost"        = proxy 5011 // {};
-      "fif.sxsw.localhost"           = proxy 5012 // {};
+      "fif.sxsw.localhost"           = proxyWithVite 5012 7012 // {};
       "artist.sxsw.localhost"        = proxy 5013 // {};
       "spg.sxsw.localhost"           = proxy 5014 // {};
       "rsvp.sxsw.localhost"          = proxy 5015 // {};
       "sxxpress.sxsw.localhost"      = proxy 5016 // {};
+      "mmx-broker.sxsw.localhost"    = proxy 5017 // {};
 
       "usenet.localhost"             = proxy 6789 // {};
       "hoogle.localhost"             = proxy 6800 // {};
